@@ -1,0 +1,71 @@
+.container{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  right: 0px;
+  z-index: 1000;
+  left: 0;
+  height: 50px;
+  background-color: var(--bg-secondary);
+  -webkit-app-region: drag;
+}
+
+.options-right {
+  display: flex;
+  position: absolute;
+  gap: 10px;
+  top: 13px;
+  right: 10px;
+}
+
+.options-right button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 25px;
+  height: 25px;
+  background-color: var(--border-color);
+  -webkit-app-region: no-drag;
+  user-select: none;
+}
+
+.options-right img{
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.options-right button:hover{
+  background-color: var(--hover-color);
+}
+
+.options-middle {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.options-middle button {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  height: 40px;
+  font-weight: bold;
+  user-select: none;
+  font-size: 19px;
+  color: white;
+  -webkit-app-region: no-drag;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.options-middle button:hover{
+  background: var(--hover-color);
+}
+
+.options-middle button.selected {
+  background: var(--hover-color);
+}

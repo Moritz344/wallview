@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="container-items">
+    @for (wallpaper of currentLoadedWallpaper(); track $index) {
+      <img [src]="wallpaper">
+    }
+  </div>
+  <div class="container-bottom">
+    <button (click)="onLoadMore()" [disabled]="wallpapers().length <= 50" [class.disabled]="wallpapers().length <= 50" class="load-more">Load more</button>
+  </div>
+</div>
+
