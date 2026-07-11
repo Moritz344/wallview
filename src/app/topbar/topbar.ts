@@ -19,7 +19,6 @@ export class Topbar {
   constructor() {}
 
   onSwitchTab(name: "local" | "browse") {
-    this.router.navigate([name]);
     this.settings.selectedTab.set(name);
   }
 

@@ -4,7 +4,11 @@
     <button (click)="onClose()"><img src="close.svg"></button>
   </div>
   <div class="options-middle">
-    <button (click)="onSwitchTab('local')"  [class.selected]="tab() == 'local'">Local</button>
-    <button (click)="onSwitchTab('browse')"  [class.selected]="tab() == 'browse'">Browse</button>
+    <button (click)="onSwitchTab('local')"  [class.selected]="tab() == 'local'">
+      <img style="margin-right: 5px" width="30" height="30" src="wallpaper.svg">Local
+    </button>
+    <button (click)="onSwitchTab('browse')"  [class.selected]="tab() == 'browse'">
+    <img style="margin-right: 5px" width="30" height="30" src="global.svg">  Wallhaven
+    </button>
   </div>
 </div>

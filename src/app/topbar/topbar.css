@@ -33,7 +33,6 @@
 .options-right img{
   width: 20px;
   height: 20px;
-  filter: brightness(0) invert(1);
 }
 
 .options-right button:hover{
@@ -45,7 +44,10 @@
   justify-content: center;
   gap: 10px;
   align-items: center;
-  margin-top: 4px;
+}
+
+img {
+  filter: brightness(0) invert(1);
 }
 
 .options-middle button {
