@@ -1,7 +1,7 @@
 {
   "name": "wallpaper-selector",
   "main": "main.js",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "build": "ng build",
@@ -36,6 +36,7 @@
     "electron": "^43.1.0",
     "electron-builder": "^26.15.3",
     "rxjs": "~7.8.0",
+    "standard-version": "^9.5.0",
     "tslib": "^2.3.0",
     "wait-on": "^9.0.10"
   },
