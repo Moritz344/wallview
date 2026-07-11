@@ -1,0 +1,21 @@
+
+@if (showFullscreenMode()) {
+    <button (click)="onCloseFullscreen()" class="fullscreen-close"><img src="close.svg"></button>
+    <div class="screen"></div>
+    <div class="fullscreen-container">
+      <img style="border-radius: 10px" width="90%" height="100%" [src]="wallpaperToShowFullscreen()">
+    </div>
+}
+
+<div class="container">
+  <div class="container-items">
+    @for (wallpaper of wallpapers(); track $index) {
+      <img (click)="onShowFullscreen(wallpaper)" [src]="wallpaper">
+    }
+  </div>
+  <div class="container-bottom">
+    <button (click)="onLoadMore()" [disabled]="wallpapers().length < 5" [class.disabled]="wallpapers().length < 5" class="load-more">Load more</button>
+  </div>
+</div>
+
+
