@@ -1,2 +1,9 @@
 
 
+  @if (tab() == "local") {
+    <app-wallpaper [wallpapers]="currentLoadedLocalWallpapers" (loadMore)="onLoadMoreWallpapers()"></app-wallpaper>
+  } @else{
+    <app-wallpaper></app-wallpaper>
+  }
+
+
