@@ -9,6 +9,5 @@ export class Settings {
   public selectedTab = signal<"local" | "browse">("local");
 
   constructor() {
-    this.router.navigate(["local"]);
   }
 }
