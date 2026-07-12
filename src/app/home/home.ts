@@ -6,9 +6,9 @@ import { Wallpaper } from '../wallpaper/wallpaper';
 import { Electron } from '../electron';
 import { Wallhaven } from '../wallhaven';
 
-// TODO: browse local wallpapers
-// TODO: browse wallhaven wallpapers
-// TODO: view wallpaper
+// TODO: download wallhavenw wallpapers
+// TODO: open wallpaper in folder
+// TODO: change local wallpaper folder
 
 @Component({
   selector: 'app-home',
