@@ -11,6 +11,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
+      webSecurity: false,
       preload: path.join(__dirname, "preload.js"),
     },
   });
@@ -34,8 +35,10 @@ ipcMain.handle("exit",(_) => {
 ipcMain.handle("get-local-wallpapers",(_) => {
   const pathToLocalWallpapers = path.join(os.homedir() + "/Wallpapers");
   let files = fs.readdirSync(pathToLocalWallpapers,"utf-8");
-  files = files.map(x => "local-wallpaper://" + pathToLocalWallpapers + "/" + x)
-  return files;
+  return files.map(x => ({
+    path: "local-wallpaper://" + pathToLocalWallpapers + "/" + x,
+    name: x
+  }));
 });
 
 
