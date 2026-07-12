@@ -9,5 +9,5 @@ import { Topbar } from './topbar/topbar';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('wallpaper-selector');
+  protected readonly title = signal('wallview');
 }
