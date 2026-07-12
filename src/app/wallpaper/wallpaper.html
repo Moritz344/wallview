@@ -1,4 +1,3 @@
-
 @if (showFullscreenMode()) {
     <button (click)="onCloseFullscreen()" class="fullscreen-close"><img src="close.svg"></button>
     <div class="screen"></div>
@@ -10,11 +9,17 @@
 <div class="container">
   <div class="container-items">
     @for (wallpaper of wallpapers(); track $index) {
-      <img (click)="onShowFullscreen(wallpaper)" [src]="wallpaper">
+      <img (click)="onShowFullscreen(wallpaper.path)" [src]="wallpaper.path">
     }
   </div>
+
   <div class="container-bottom">
-    <button (click)="onLoadMore()" [disabled]="wallpapers().length < 5" [class.disabled]="wallpapers().length < 5" class="load-more">Load more</button>
+    @if (mode == "load-more") {
+      <button (click)="onLoadMore()" [disabled]="wallpapers().length < 5" [class.disabled]="wallpapers().length < 5" class="load-more">Load more</button>
+    } @else {
+      <button (click)="onPrevPage()">Prev</button>
+      <button (click)="onNextPage()">Next</button>
+    }
   </div>
 </div>
 

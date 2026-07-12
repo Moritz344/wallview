@@ -3,7 +3,7 @@ img {
 }
 .container {
   position: absolute;
-  margin-top: 50px;
+  margin-top: 100px;
   right: 0;
   left: 0;
   padding: 20px;
@@ -34,11 +34,10 @@ img {
 .container-bottom {
   display: flex;
   justify-content: center;
+  gap: 10px;
 }
 
-.load-more{
-  display: flex;
-  align-items: center;
+.container-bottom button {
   background-color: var(--bg-secondary);
   color: white;
   font-size: 15px;
@@ -48,12 +47,21 @@ img {
   height: 40px;
 }
 
+.load-more{
+  display: flex;
+  align-items: center;
+}
+
 .load-more.disabled{
   color: gray;
   background-color: var(--ghost);
 }
 
 .load-more:hover:not(:disabled){
+  background-color: var(--hover-color);
+}
+
+.container-bottom button:hover {
   background-color: var(--hover-color);
 }
 

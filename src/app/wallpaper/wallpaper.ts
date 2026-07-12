@@ -8,12 +8,14 @@ import { Electron } from '../electron';
   styleUrl: './wallpaper.css',
 })
 export class Wallpaper implements OnInit {
-  @Input() wallpapers = signal<string[]>([]);
+  @Input() wallpapers = signal<any[]>([]);
+  @Input() mode: "load-more" | "pagination" = "load-more";
+
   @Output() loadMore = new EventEmitter<void>();
+  @Output() nextPage = new EventEmitter<void>();
+  @Output() prevPage = new EventEmitter<void>();
 
   public electron = inject(Electron);
-  public readonly loadQuantity = 50;
-  public results = 0;
 
   public wallpaperToShowFullscreen = signal<string>("");
   public showFullscreenMode = signal<boolean>(false);
@@ -28,6 +30,14 @@ export class Wallpaper implements OnInit {
 
   onCloseFullscreen() {
     this.showFullscreenMode.set(false);
+  }
+
+  onNextPage() {
+    this.nextPage.emit();
+  }
+
+  onPrevPage() {
+    this.prevPage.emit();
   }
 
   onLoadMore() {
