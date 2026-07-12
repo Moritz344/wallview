@@ -1,0 +1,40 @@
+.search {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  margin-top: 70px;
+  margin-left: 20px;
+  gap: 10px;
+}
+
+.search input {
+  font-size: 20px;
+}
+
+.search button {
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  color: white;
+}
+
+.search button:hover {
+  background-color: var(--hover-color);
+}
+
+.search button.selected {
+  background-color: var(--hover-color);
+}
+
+.search select {
+  font-size: 20px;
+}
+
+.search-btn {
+  font-size: 20px;
+}
+
+.search-btn img {
+  float: left;
+  width: 25px;
+  filter: brightness(0) invert(1);
+}
