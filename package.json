@@ -1,9 +1,10 @@
 {
-  "name": "wallpaper-selector",
+  "name": "wallview",
   "main": "main.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
+    "release": "standard-version",
     "build": "ng build",
     "start": "concurrently \"ng serve\" \"wait-on http://localhost:4200 && npm run electron-dev\"",
     "electron-dev": "cross-env ELECTRON_DEV=true electron .",
