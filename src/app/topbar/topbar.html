@@ -1,15 +1,21 @@
+
+@if (menuSelected()) {
+  <app-menu (close)="this.menuSelected.set(false)"></app-menu>
+}
+
 <div class="container">
   <div class="options-right">
     <button class="button-with-bg"><img src="minimize.svg"></button>
-    <button class="menu" (click)="this.menuSelected.update(x => !x)" [class.selected]="menuSelected()"><img  src="menu.svg"></button>
+    <button class="menu" (click)="this.menuSelected.update(x => !x)" [class.selected]="menuSelected()"><img src="menu.svg"></button>
     <button class="button-with-bg" (click)="onClose()"><img src="close.svg"></button>
   </div>
   <div class="options-middle">
     <button (click)="onSwitchTab('local')"  [class.selected]="tab() == 'local'">
-      <img style="margin-right: 5px" width="30" height="30" src="wallpaper.svg">Local
+      <img style="margin-right: 5px" width="20" height="20" src="wallpaper.svg">Local
     </button>
     <button (click)="onSwitchTab('browse')"  [class.selected]="tab() == 'browse'">
-    <img style="margin-right: 5px" width="30" height="30" src="global.svg">  Wallhaven
+    <img style="margin-right: 5px" width="20" height="20" src="global.svg">  Wallhaven
     </button>
   </div>
 </div>
+

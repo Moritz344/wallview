@@ -2,10 +2,11 @@ import { Component,inject,signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Settings } from '../settings';
 import { Electron }  from '../electron';
+import { Menu } from './menu/menu'
 
 @Component({
   selector: 'app-topbar',
-  imports: [],
+  imports: [Menu],
   templateUrl: './topbar.html',
   styleUrl: './topbar.css',
 })
