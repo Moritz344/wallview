@@ -33,7 +33,12 @@
 </div>
 
   @if (tab() == "local") {
-    <app-wallpaper [wallpapers]="currentLoadedLocalWallpapers" (loadMore)="loadMoreLocalWallpapers()" mode="load-more"></app-wallpaper>
+    <app-wallpaper
+    [wallpapers]="currentLoadedLocalWallpapers"
+    (loadMore)="loadMoreLocalWallpapers()"
+    [showInFolderOption]="true"
+    mode="load-more">
+    </app-wallpaper>
   } @else{
     @if (!isLoading()) {
       <app-wallpaper
