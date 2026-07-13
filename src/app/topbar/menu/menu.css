@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  z-index: 10004;
+}
+
+.screen {
+  z-index: 1002;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
+.round {
+  color: white;
+  border-radius: 0px;
+  background-color: #38383C;
+  padding: 15px;
+}
+.round:active {
+  transform: none;
+}
+
+.round:first-child {
+  border-radius: 10px 10px 0 0;
+}
+
+.round:last-child {
+  border-top: 1px solid #565659;
+  border-radius: 0 0 10px 10px;
+}
+
+button:hover{
+  background-color: var(--hover-color);
+}
