@@ -28,14 +28,29 @@ ipcMain.handle("open-external", async (_, url) => {
   await shell.openExternal(url);
 });
 
+ipcMain.handle("open-wallpaper", async (_, path) => {
+  const correctPath = path.split("///")[1];
+  shell.showItemInFolder("/" + correctPath);
+  console.log("open ", correctPath);
+});
+
 ipcMain.handle("exit",(_) => {
   app.quit()
 });
 
+
 ipcMain.handle("get-local-wallpapers",(_) => {
   const pathToLocalWallpapers = path.join(os.homedir() + "/Wallpapers");
-  let files = fs.readdirSync(pathToLocalWallpapers,"utf-8");
-  return files.map(x => ({
+
+  if (!fs.existsSync(pathToLocalWallpapers)) {
+    return []
+  }
+  const allowedFileTypes = ["png","jpg","jpeg"];
+
+  const files = fs.readdirSync(pathToLocalWallpapers,"utf-8");
+
+  let filteredFiles = files.filter( x => allowedFileTypes.includes(x.split(".")[1]));
+  return filteredFiles.map(x => ({
     path: "local-wallpaper://" + pathToLocalWallpapers + "/" + x,
     name: x
   }));
