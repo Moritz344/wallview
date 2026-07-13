@@ -1,4 +1,4 @@
-import { Component,inject } from '@angular/core';
+import { Component,inject,signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Settings } from '../settings';
 import { Electron }  from '../electron';
@@ -15,6 +15,7 @@ export class Topbar {
   public router = inject(Router);
 
   public tab = this.settings.selectedTab;
+  public menuSelected = signal<boolean>(false);
 
   constructor() {}
 
