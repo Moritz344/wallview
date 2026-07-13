@@ -13,4 +13,8 @@ export class Electron {
   async getLocalWallpapers() {
     return await (window as any).electronAPI.getLocalWallpapers();
   }
+
+  async openWallpaperInFolder(path: string) {
+    return await (window as any).electronAPI.openWallpaper(path);
+  }
 }
