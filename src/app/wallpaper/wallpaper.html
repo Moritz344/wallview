@@ -1,9 +1,13 @@
 @if (showFullscreenMode()) {
-    <button (click)="onCloseFullscreen()" class="fullscreen-close"><img src="close.svg"></button>
     <div class="screen"></div>
     <div class="fullscreen-container">
-      <img style="border-radius: 10px" width="90%" height="100%" [src]="wallpaperToShowFullscreen()">
+        <img style="border-radius: 10px" [src]="wallpaperToShowFullscreen()">
+        <button (click)="onCloseFullscreen()" class="fullscreen-close"><img src="close.svg"></button>
     </div>
+    @if (showInFolderOption) {
+      <button class="open-in-folder" (click)="onOpenWallpaperInFolder()"><img src="open_in_folder.svg" width="30"
+      style="float: left;margin-right: 5px" class="white-img">Open In Folder</button>
+    }
 }
 
 <div class="container">

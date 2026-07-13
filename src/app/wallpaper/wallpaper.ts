@@ -1,4 +1,4 @@
-import { Component,OnInit,inject,signal,Input,Output,EventEmitter } from '@angular/core';
+import { Component,HostListener,OnInit,inject,signal,Input,Output,EventEmitter } from '@angular/core';
 import { Electron } from '../electron';
 
 @Component({
@@ -10,6 +10,7 @@ import { Electron } from '../electron';
 export class Wallpaper implements OnInit {
   @Input() wallpapers = signal<any[]>([]);
   @Input() mode: "load-more" | "pagination" = "load-more";
+  @Input() showInFolderOption: boolean = false;
 
   @Output() loadMore = new EventEmitter<void>();
   @Output() nextPage = new EventEmitter<void>();
@@ -24,11 +25,18 @@ export class Wallpaper implements OnInit {
   }
 
   onShowFullscreen(path: string) {
+    console.log(path);
     this.wallpaperToShowFullscreen.set(path);
     this.showFullscreenMode.set(true);
   }
 
   onCloseFullscreen() {
+    this.showFullscreenMode.set(false);
+  }
+
+  @HostListener("document:keydown.escape")
+  onEscape() {
+    console.log("close")
     this.showFullscreenMode.set(false);
   }
 
@@ -44,8 +52,13 @@ export class Wallpaper implements OnInit {
     this.loadMore.emit();
   }
 
+  onOpenWallpaperInFolder() {
+    this.electron.openWallpaperInFolder(this.wallpaperToShowFullscreen());
+  }
+
   ngOnInit(): void {
   }
+
 
 
 }

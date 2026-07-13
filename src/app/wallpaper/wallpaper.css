@@ -67,23 +67,52 @@ img {
 
 
 .fullscreen-container {
-  display: flex;
-  justify-content: center;
-  top: 50%;
-  transform: translateY(-50%);
   position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 9000;
+  width: fit-content;
+}
+.fullscreen-container img {
+  width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.fullscreen-close img {
+  width: 50px;
 }
 
 .fullscreen-close {
-  position: fixed;
-  top: 50px;
-  right: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
   height: 80px;
-  width: 80px;
   background: transparent;
   z-index: 9001;
 }
+
+.open-in-folder {
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9001;
+  border-radius: 10px;
+  background-color: var(--bg-secondary);
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.open-in-folder:hover {
+  background-color: var(--hover-color);
+}
+
+
 
 .fullscreen-close button:hover{
 }
