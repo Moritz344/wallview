@@ -60,6 +60,10 @@
   animation: 0.2s fadeOut;
 }
 
+.white-img{
+  filter: brightness(0) invert(1);
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
