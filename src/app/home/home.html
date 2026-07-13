@@ -29,7 +29,7 @@
       }
     </select>
   }
-  <button class="search-btn" (click)="initWallpapers()"><img src="search.svg">Search</button>
+  <button class="search-btn" (click)="initWallpapers()"><img src="search.svg"></button>
 </div>
 
   @if (tab() == "local") {
@@ -37,6 +37,7 @@
     [wallpapers]="currentLoadedLocalWallpapers"
     (loadMore)="loadMoreLocalWallpapers()"
     [showInFolderOption]="true"
+    type="local"
     mode="load-more">
     </app-wallpaper>
   } @else{
@@ -45,6 +46,7 @@
       (nextPage)="nextPage()"
       (prevPage)="prevPage()"
       [wallpapers]="currentLoadedWallhavenWallpapers"
+      type="wallhaven"
       mode="pagination">
       </app-wallpaper>
     }

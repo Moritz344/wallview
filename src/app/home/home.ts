@@ -9,6 +9,10 @@ import { Wallhaven } from '../wallhaven';
 // TODO: download wallhavenw wallpapers
 // TODO: open wallpaper in folder
 // TODO: change local wallpaper folder
+//
+// TODO: double click on local wallpaper => open in folder
+// TODO: double click on wallhaven wallpaper => download
+// maybe remove fullscreen showcase of wallpaper?
 
 @Component({
   selector: 'app-home',
@@ -33,9 +37,9 @@ export class Home implements OnInit {
   public searchParameter = signal<any>({
     q: "",
     categories: [
-      { name: "anime",isChecked: true },
-      { name: "people",isChecked: true },
-      { name: "general",isChecked: true }
+      { name: "Anime",isChecked: true },
+      { name: "People",isChecked: true },
+      { name: "General",isChecked: true }
     ],
     purity: 0,
     sorting: "views",
