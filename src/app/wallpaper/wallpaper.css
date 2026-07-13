@@ -3,7 +3,7 @@ img {
 }
 .container {
   position: absolute;
-  margin-top: 100px;
+  margin-top: 120px;
   right: 0;
   left: 0;
   padding: 20px;
@@ -40,11 +40,13 @@ img {
 .container-bottom button {
   background-color: var(--bg-secondary);
   color: white;
-  font-size: 15px;
+  font-size: 20px;
   border-radius: 10px;
   margin-top: 10px;
-  font-weight: bold;
+  padding: 15px;
   height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .load-more{

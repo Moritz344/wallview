@@ -11,6 +11,7 @@ export class Wallpaper implements OnInit {
   @Input() wallpapers = signal<any[]>([]);
   @Input() mode: "load-more" | "pagination" = "load-more";
   @Input() showInFolderOption: boolean = false;
+  @Input() type: "local" | "wallhaven" = "local";
 
   @Output() loadMore = new EventEmitter<void>();
   @Output() nextPage = new EventEmitter<void>();
@@ -22,6 +23,20 @@ export class Wallpaper implements OnInit {
   public showFullscreenMode = signal<boolean>(false);
 
   constructor() {
+  }
+
+  downloadWallpaper(path: string) {}
+
+  showWallpaper(path: string) {
+    this.electron.openWallpaperInFolder(path);
+  }
+
+  onWallpaper(wallpaper: { path: string,name: string}) {
+    if (this.type == "local") {
+      this.showWallpaper(wallpaper.path);
+    } else {
+      this.downloadWallpaper(wallpaper.path);
+    }
   }
 
   onShowFullscreen(path: string) {

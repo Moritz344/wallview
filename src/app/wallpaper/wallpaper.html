@@ -13,10 +13,11 @@
 <div class="container">
   <div class="container-items">
     @for (wallpaper of wallpapers(); track $index) {
-      <img (click)="onShowFullscreen(wallpaper.path)" [src]="wallpaper.path">
+      <img (click)="onWallpaper(wallpaper)" [src]="wallpaper.path">
     }
   </div>
 
+  @if (wallpapers().length > 0) {
   <div class="container-bottom">
     @if (mode == "load-more") {
       <button (click)="onLoadMore()" [disabled]="wallpapers().length < 5" [class.disabled]="wallpapers().length < 5" class="load-more">Load more</button>
@@ -25,6 +26,9 @@
       <button (click)="onNextPage()">Next</button>
     }
   </div>
+  } @else {
+    <h1 style="display: flex;justify-content: center;margin-top: 300px;font-size: 30px">No results</h1>
+  }
 </div>
 
 
