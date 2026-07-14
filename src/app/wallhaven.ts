@@ -39,7 +39,7 @@ export class Wallhaven {
     params.append("categories",
           searchParameter.categories
                   .filter((category: any) => category.isChecked)
-                  .map((c: any) => c.name)
+                  .map((c: any) => c.name.toLowerCase())
                   .join(",")
     )
     params.append("resolution",searchParameter.resolution);
