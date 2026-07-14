@@ -50,9 +50,9 @@ ipcMain.handle("get-local-wallpapers",(_) => {
   const files = fs.readdirSync(pathToLocalWallpapers,"utf-8");
 
   let filteredFiles = files.filter( x => allowedFileTypes.includes(x.split(".")[1]));
-  return filteredFiles.map(x => ({
-    path: "local-wallpaper://" + pathToLocalWallpapers + "/" + x,
-    name: x
+  return filteredFiles.map(name => ({
+    path: "local-wallpaper://" + pathToLocalWallpapers + "/" + name,
+    name: name
   }));
 });
 
