@@ -17,6 +17,7 @@ export class Wallpaper implements OnInit {
   @Output() load = new EventEmitter<"less" | "more">();
   @Output() nextPage = new EventEmitter<void>();
   @Output() prevPage = new EventEmitter<void>();
+  @Input() pageData: { page: number,total: number} = {page:0,total: 0};
 
   public electron = inject(Electron);
 
