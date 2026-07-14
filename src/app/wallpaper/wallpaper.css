@@ -16,6 +16,15 @@ img {
   gap: 30px;
 }
 
+.wallpaper-name {
+  display: block;
+  margin-top: 10px;
+  width: 300px;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+
 .container-items img{
   display: block;
   width: 350px;

@@ -12,8 +12,9 @@ export class Wallpaper implements OnInit {
   @Input() mode: "load-more" | "pagination" = "load-more";
   @Input() showInFolderOption: boolean = false;
   @Input() type: "local" | "wallhaven" = "local";
+  @Input() wallpapersTotal: number = 0;
 
-  @Output() loadMore = new EventEmitter<void>();
+  @Output() load = new EventEmitter<"less" | "more">();
   @Output() nextPage = new EventEmitter<void>();
   @Output() prevPage = new EventEmitter<void>();
 
@@ -31,7 +32,9 @@ export class Wallpaper implements OnInit {
     this.electron.openWallpaperInFolder(path);
   }
 
+
   onWallpaper(wallpaper: { path: string,name: string}) {
+    console.log(wallpaper);
     if (this.type == "local") {
       this.showWallpaper(wallpaper.path);
     } else {
@@ -55,6 +58,10 @@ export class Wallpaper implements OnInit {
     this.showFullscreenMode.set(false);
   }
 
+  onOpenExternal(url: string) {
+    this.electron.openExternalLink(url);
+  }
+
   onNextPage() {
     this.nextPage.emit();
   }
@@ -64,7 +71,11 @@ export class Wallpaper implements OnInit {
   }
 
   onLoadMore() {
-    this.loadMore.emit();
+    this.load.emit("more");
+  }
+
+  onLoadLess() {
+    this.load.emit("less");
   }
 
   onOpenWallpaperInFolder() {

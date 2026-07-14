@@ -13,14 +13,23 @@
 <div class="container">
   <div class="container-items">
     @for (wallpaper of wallpapers(); track $index) {
-      <img (click)="onWallpaper(wallpaper)" [src]="wallpaper.path">
+    <div class="container-item">
+      @if (type == "wallhaven" ) {
+        <img draggable="false" (click)="onWallpaper(wallpaper)" [src]="wallpaper.thumbs.original">
+      } @else {
+        <img draggable="false" (click)="onWallpaper(wallpaper)" [src]="wallpaper.path">
+        <span class="wallpaper-name">{{ wallpaper.name }} </span>
+      }
+    </div>
     }
   </div>
 
   @if (wallpapers().length > 0) {
   <div class="container-bottom">
     @if (mode == "load-more") {
-      <button (click)="onLoadMore()" [disabled]="wallpapers().length < 5" [class.disabled]="wallpapers().length < 5" class="load-more">Load more</button>
+       @if (wallpapers().length < wallpapersTotal ) {
+        <button (click)="onLoadMore()" [disabled]="wallpapers().length < 5" [class.disabled]="wallpapers().length < 5" class="load-more">Load more</button>
+       }
     } @else {
       <button (click)="onPrevPage()">Prev</button>
       <button (click)="onNextPage()">Next</button>
