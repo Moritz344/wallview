@@ -10,6 +10,11 @@ export class Electron {
     return await (window as any).electronAPI.exit();
   }
 
+
+  async openExternalLink(url: string) {
+    return await (window as any).electronAPI.openExternalLink(url);
+  }
+
   async getLocalWallpapers() {
     return await (window as any).electronAPI.getLocalWallpapers();
   }
