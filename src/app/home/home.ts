@@ -12,7 +12,7 @@ import { Wallhaven } from '../wallhaven';
 //
 // TODO: double click on local wallpaper => open in folder
 // TODO: double click on wallhaven wallpaper => download
-// maybe remove fullscreen showcase of wallpaper?
+// TODO: show page number for wallhaven instead of loaded images
 
 @Component({
   selector: 'app-home',
@@ -73,8 +73,11 @@ export class Home implements OnInit {
   }
 
 
-  loadMoreLocalWallpapers() {
-    const newLoadedWallpapers = this.localWallpapers().slice(0,this.currentLoadedLocalWallpapers().length + this.loadQuantity())
+  loadLocalWallpapers() {
+    const start = 0;
+    let end = this.currentLoadedLocalWallpapers().length + this.loadQuantity();
+
+    const newLoadedWallpapers = this.localWallpapers().slice(start,end)
     this.currentLoadedLocalWallpapers.set(newLoadedWallpapers);
   }
 
@@ -89,6 +92,10 @@ export class Home implements OnInit {
   }
 
   onChangeCategory(name: string, isChecked: boolean) {
+    const uncheckedCategories = this.searchParameter().categories.filter((category: any) => !category.isChecked);
+    if (uncheckedCategories.length == 2 && isChecked) {
+      return;
+    }
     let selected = !isChecked;
     this.searchParameter.update(paremeter => ({
       ...paremeter,

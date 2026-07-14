@@ -11,19 +11,19 @@
     @for (category of this.searchParameter().categories; track $index) {
       <button (click)="onChangeCategory(category.name,category.isChecked)" [class.selected]="category.isChecked == true">{{ category.name }}</button>
     }
-    <select [(ngModel)]="searchParameter().sorting">
+    <select (change)="searchWallhavenWallpapers()" [(ngModel)]="searchParameter().sorting">
       @for (sort of this.wallhaven.sorting(); track $index) {
         <option>{{ sort }}</option>
       }
     </select>
 
-    <select [(ngModel)]="searchParameter().order">
+    <select (change)="searchWallhavenWallpapers()" [(ngModel)]="searchParameter().order">
       @for (order of this.wallhaven.orders(); track $index) {
         <option>{{ order }}</option>
       }
     </select>
 
-    <select [(ngModel)]="searchParameter().resolution">
+    <select (change)="searchWallhavenWallpapers()" [(ngModel)]="searchParameter().resolution">
       @for (res of this.wallhaven.resolutions();track $index) {
         <option>{{ res }}</option>
       }
@@ -35,8 +35,9 @@
   @if (tab() == "local") {
     <app-wallpaper
     [wallpapers]="currentLoadedLocalWallpapers"
-    (loadMore)="loadMoreLocalWallpapers()"
+    (load)="loadLocalWallpapers()"
     [showInFolderOption]="true"
+    [wallpapersTotal]="localWallpapers().length"
     type="local"
     mode="load-more">
     </app-wallpaper>
