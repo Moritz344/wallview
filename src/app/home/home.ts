@@ -42,7 +42,7 @@ export class Home implements OnInit {
       { name: "General",isChecked: true }
     ],
     purity: 0,
-    sorting: "views",
+    sorting: "toplist",
     order: "desc",
     topRange: "1M",
     atleast: "1920x1080",
@@ -51,6 +51,8 @@ export class Home implements OnInit {
   });
 
   public isLoading = signal<boolean>(false);
+
+  public totalWallhavenPages = signal<number>(0);
 
   constructor() {
       effect(() => {
@@ -123,7 +125,7 @@ export class Home implements OnInit {
         this.wallhavenWallpapers.set(response.data);
         this.currentLoadedWallhavenWallpapers.set(this.wallhavenWallpapers().slice(0,this.loadQuantity()))
         this.isLoading.set(false);
-        console.log(this.currentLoadedWallhavenWallpapers());
+        this.totalWallhavenPages.set(response.meta.total);
       }, error: (error: any) => {
         console.log("error:",error);
       }

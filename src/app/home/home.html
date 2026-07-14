@@ -46,6 +46,7 @@
       <app-wallpaper
       (nextPage)="nextPage()"
       (prevPage)="prevPage()"
+      [pageData]="{ page: searchParameter().page, total: totalWallhavenPages() }"
       [wallpapers]="currentLoadedWallhavenWallpapers"
       type="wallhaven"
       mode="pagination">
