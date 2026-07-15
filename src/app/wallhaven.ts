@@ -6,6 +6,8 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -31,6 +33,7 @@ export class Wallhaven {
   constructor() {}
 
   search(searchParameter: any) {
+    // TODO: make api request to search for wallpapers with electron instead
     const params = new URLSearchParams();
     params.append("q",searchParameter.q);
     params.append("sorting",searchParameter.sorting);
