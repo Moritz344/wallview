@@ -62,9 +62,7 @@ export class Home implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.initWallpapers();
-  }
+  ngOnInit() {}
 
   initWallpapers() {
     if (this.tab() == "local") {
@@ -118,18 +116,13 @@ export class Home implements OnInit {
     this.isLoading.set(false);
   }
 
-  searchWallhavenWallpapers() {
+  async searchWallhavenWallpapers() {
     this.isLoading.set(true);
-    this.wallhaven.search(this.searchParameter()).subscribe({
-      next: (response: any) => {
-        this.wallhavenWallpapers.set(response.data);
-        this.currentLoadedWallhavenWallpapers.set(this.wallhavenWallpapers().slice(0,this.loadQuantity()))
-        this.isLoading.set(false);
-        this.totalWallhavenPages.set(response.meta.total);
-      }, error: (error: any) => {
-        console.log("error:",error);
-      }
-    });
+    const response = await this.electron.getWallhavenWallpapers(this.searchParameter());
+    this.wallhavenWallpapers.set(response.data);
+    this.currentLoadedWallhavenWallpapers.set(this.wallhavenWallpapers().slice(0,this.loadQuantity()));
+    this.isLoading.set(false);
+    this.totalWallhavenPages.set(response.meta.total);
   }
 
 }

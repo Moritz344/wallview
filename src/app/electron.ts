@@ -10,6 +10,10 @@ export class Electron {
     return await (window as any).electronAPI.exit();
   }
 
+  async getWallhavenWallpapers(searchParameter: any) {
+    return await (window as any).electronAPI.searchWallhaven(searchParameter);
+  }
+
 
   async openExternalLink(url: string) {
     return await (window as any).electronAPI.openExternalLink(url);
