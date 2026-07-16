@@ -3,6 +3,8 @@ const path = require("path");
 const fs = require("fs");
 const os = require("os");
 
+const wallhavenBaseUrl = "https://wallhaven.cc/api/v1";
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
@@ -11,7 +13,6 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      webSecurity: false,
       preload: path.join(__dirname, "preload.js"),
     },
   });
@@ -23,6 +24,31 @@ function createWindow() {
   }
 
 }
+
+ipcMain.handle("search-wallhaven",async(_,params) => {
+  try {
+    const urlParams = new URLSearchParams();
+    urlParams.append("q",params.q);
+    urlParams.append("sorting",params.sorting);
+    urlParams.append("order",params.order);
+    urlParams.append("categories",params.categories
+      .filter(category => category.isChecked)
+      .map(category => category.name.toLowerCase())
+      .join(","))
+    urlParams.append("resolution",params.resolution);
+    urlParams.append("page",params.page);
+    console.log(urlParams.toString())
+
+    const response = await fetch(wallhavenBaseUrl + "/search?" + urlParams.toString())
+    if (!response) {
+      return;
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.log("error",error);
+  }
+});
 
 ipcMain.handle("open-external", async (_, url) => {
   await shell.openExternal(url);
