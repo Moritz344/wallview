@@ -58,21 +58,6 @@ export class Wallpaper implements OnInit {
     }
   }
 
-  onShowFullscreen(path: string) {
-    console.log(path);
-    this.wallpaperToShowFullscreen.set(path);
-    this.showFullscreenMode.set(true);
-  }
-
-  onCloseFullscreen() {
-    this.showFullscreenMode.set(false);
-  }
-
-  @HostListener("document:keydown.escape")
-  onEscape() {
-    console.log("close")
-    this.showFullscreenMode.set(false);
-  }
 
   onOpenExternal(url: string) {
     this.electron.openExternalLink(url);
