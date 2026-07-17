@@ -14,6 +14,14 @@ export class Electron {
     return await (window as any).electronAPI.searchWallhaven(searchParameter);
   }
 
+  async downloadWallpaper(path: string) {
+    return await (window as any).electronAPI.downloadWallpaper(path);
+  }
+
+  async changeLocalWallpaperPath() {
+    return await (window as any).electronAPI.openLocalWallpaperPath();
+  }
+
   async openAbout() {
     return await (window as any).electronAPI.openAboutWindow();
   }
