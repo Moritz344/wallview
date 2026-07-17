@@ -26,15 +26,11 @@ export class Wallpaper implements OnInit {
 
   public wallpaperToShowFullscreen = signal<string>("");
   public showFullscreenMode = signal<boolean>(false);
-  public isDownloading = signal<boolean>(false);
-  public fileToDownload = signal<string>("");
 
   constructor() {
   }
 
   async downloadWallpaper(path: string) {
-    this.isDownloading.set(true);
-
     const isAlreadyBeingDownloaded = this.downloadService.currentDownloads().some((download: any) => download.url == path);
     if (isAlreadyBeingDownloaded) { return; }
 
