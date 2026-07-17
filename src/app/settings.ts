@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export class Settings {
   public router = inject(Router);
   public selectedTab = signal<"local" | "browse">("local");
+  public localWallpaperPath = signal<string>("");
 
-  constructor() {
-  }
+  constructor() {}
 }
