@@ -1,5 +1,6 @@
 import { Component, EventEmitter,Output,inject } from '@angular/core';
 import { Electron } from '../../electron';
+import { Settings } from '../../settings';
 
 @Component({
   selector: 'app-menu',
@@ -11,11 +12,20 @@ export class Menu {
   @Output() close = new EventEmitter<void>();
 
   private electron = inject(Electron);
+  private settings = inject(Settings);
 
   constructor() {}
 
   onClose() {
     this.close.emit();
+  }
+
+  async onChangeLocalWallpaperPath() {
+    const newPath = await this.electron.changeLocalWallpaperPath();
+    if (!newPath) {
+      return;
+    }
+    this.settings.localWallpaperPath.set(newPath);
   }
 
   onAbout() {
