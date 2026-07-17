@@ -14,6 +14,17 @@ export class Electron {
     return await (window as any).electronAPI.searchWallhaven(searchParameter);
   }
 
+  async openAbout() {
+    return await (window as any).electronAPI.openAboutWindow();
+  }
+
+  async getAboutData() {
+    return await (window as any).electronAPI.getAboutData();
+  }
+
+  async closeWindow(name: string) {
+    return await (window as any).electronAPI.closeElectronWindow(name);
+  }
 
   async openExternalLink(url: string) {
     return await (window as any).electronAPI.openExternalLink(url);
