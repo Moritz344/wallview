@@ -7,14 +7,6 @@ import { Electron } from '../electron';
 import { Wallhaven } from '../wallhaven';
 import { SearchParameter, WallpaperCategories, WallpaperFile } from './home.types';
 
-// TODO: download wallhavenw wallpapers
-// TODO: open wallpaper in folder
-// TODO: change local wallpaper folder
-//
-// TODO: double click on local wallpaper => open in folder
-// TODO: double click on wallhaven wallpaper => download
-// TODO: show page number for wallhaven instead of loaded images
-
 @Component({
   selector: 'app-home',
   imports: [Topbar,Wallpaper,FormsModule],
