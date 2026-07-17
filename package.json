@@ -1,5 +1,7 @@
 {
   "name": "wallview",
+  "description": "view local wallpaper and browse wallpaper from wallhaven",
+  "author": "Moritz Maier",
   "main": "main.js",
   "version": "0.0.2",
   "scripts": {
