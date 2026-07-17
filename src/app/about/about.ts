@@ -26,7 +26,6 @@ export class About {
 
   async initData() {
     this.data.set(await this.electron.getAboutData());
-    console.log(this.data());
   }
 
 }
