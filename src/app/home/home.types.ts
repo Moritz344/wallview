@@ -1,6 +1,6 @@
 export interface SearchParameter {
   q: string,
-  categories: [{ name: string,isChecked: boolean }],
+  categories: WallpaperCategories[],
   purity: number,
   sorting: string,
   order: string,
@@ -13,4 +13,9 @@ export interface SearchParameter {
 export interface WallpaperFile {
   name: string,
   path: string
+}
+
+export interface WallpaperCategories {
+  name: string,
+  isChecked: boolean
 }
