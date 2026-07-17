@@ -4,9 +4,12 @@ const fs = require("fs");
 const os = require("os");
 
 const wallhavenBaseUrl = "https://wallhaven.cc/api/v1";
+let aboutWindow;
+let win;
+
 
 function createWindow() {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 800,
     height: 600,
     frame: false,
@@ -23,6 +26,16 @@ function createWindow() {
     win.loadFile(path.join(app.getAppPath(), 'dist/'));
   }
 
+}
+
+function loadAngularRoute(window, route = "") {
+  if (process.env.ELECTRON_DEV) {
+    window.loadURL(`http://localhost:4200/#/${route}`);
+  } else {
+    window.loadFile(path.join(__dirname, "dist/launcher/browser/index.html"), {
+      hash: route,
+    });
+  }
 }
 
 ipcMain.handle("search-wallhaven",async(_,params) => {
@@ -48,6 +61,46 @@ ipcMain.handle("search-wallhaven",async(_,params) => {
   } catch (error) {
     console.log("error",error);
   }
+});
+
+ipcMain.handle("close-electron-window",async(_,name) => {
+  if (name == "about") {
+    aboutWindow.close();
+  }
+
+})
+
+ipcMain.handle("get-about-data",async () => {
+  try {
+    const pkg = JSON.parse(fs.readFileSync(path.join(__dirname,"package.json")));
+
+    return {
+        name: pkg.name,
+        version: pkg.version,
+        description: pkg.description,
+        author: pkg.author
+      }
+    } catch (error) {
+      console.log("error:", error);
+    }
+})
+
+ipcMain.handle("open-about",async () => {
+   aboutWindow = new BrowserWindow({
+      width: 900,
+      height: 650,
+      frame: false,
+      parent: win,
+      modal: true,
+      webPreferences: {
+        contextIsolation: true,
+        enableRemoteModule: false,
+        preload: path.join(__dirname, "preload.js"),
+      },
+    });
+
+    //aboutWindow.openDevTools();
+    loadAngularRoute(aboutWindow, "about");
 });
 
 ipcMain.handle("open-external", async (_, url) => {
