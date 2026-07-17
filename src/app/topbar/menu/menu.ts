@@ -1,4 +1,5 @@
-import { Component, EventEmitter,Output } from '@angular/core';
+import { Component, EventEmitter,Output,inject } from '@angular/core';
+import { Electron } from '../../electron';
 
 @Component({
   selector: 'app-menu',
@@ -9,7 +10,15 @@ import { Component, EventEmitter,Output } from '@angular/core';
 export class Menu {
   @Output() close = new EventEmitter<void>();
 
+  private electron = inject(Electron);
+
+  constructor() {}
+
   onClose() {
     this.close.emit();
+  }
+
+  onAbout() {
+    this.electron.openAbout();
   }
 }
