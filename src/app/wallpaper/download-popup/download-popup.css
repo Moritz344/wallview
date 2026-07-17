@@ -1,0 +1,26 @@
+.container {
+  background-color: var(--bg-secondary);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+
+.close{
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+
+.close img {
+  display: flex;
+  justify-content: center;
+  filter: brightness(0) invert(1);
+}
+
+.close:hover {
+  background-color: var(--hover-color);
+}
