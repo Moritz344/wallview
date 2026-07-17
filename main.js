@@ -1,4 +1,4 @@
-const { app, BrowserWindow,net, ipcMain, protocol, shell } = require("electron");
+const { app,dialog, BrowserWindow,net, ipcMain, protocol, shell } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const os = require("os");
@@ -6,7 +6,18 @@ const os = require("os");
 const wallhavenBaseUrl = "https://wallhaven.cc/api/v1";
 let aboutWindow;
 let win;
+let store;
 
+const defaultLocalWallpaperPath = path.join(os.homedir() + "/Wallpapers");
+
+async function initStore() {
+  const StoreModule = await import("electron-store");
+  store = new StoreModule.default();
+}
+
+function getLocalWallpaperPath() {
+  return store.get("localWallpaperPath");
+}
 
 function createWindow() {
   win = new BrowserWindow({
@@ -117,9 +128,48 @@ ipcMain.handle("exit",(_) => {
   app.quit()
 });
 
+ipcMain.handle("open-local-wallpaper",async() => {
+  const result = await dialog.showOpenDialog({
+    properties: ['openDirectory']
+  });
+
+  if (!result.canceled && result.filePaths.length > 0) {
+    const path = result.filePaths[0];
+    store.set("localWallpaperPath",path);
+    return path;
+  }
+  return null;
+});
+
+ipcMain.handle("download-wallpaper",async(_,url) => {
+  try {
+    const response = await net.fetch(url);
+    if (!response.ok) { return {success: false }; }
+
+    const buffer = Buffer.from(await response.arrayBuffer());
+    const pathToSaveWallpaperIn = (getLocalWallpaperPath()) ? getLocalWallpaperPath() : defaultLocalWallpaperPath;
+
+    const fileName = url.split("/").at(-1);
+    const filePath = path.join(pathToSaveWallpaperIn, fileName);
+
+    if (!fs.existsSync(pathToSaveWallpaperIn)) { return { success: false }}
+    fs.writeFileSync(filePath,buffer);
+    return {
+      name: fileName,
+      success: true
+    }
+
+
+  } catch(error) {
+    console.log("error: ",error);
+
+  }
+})
 
 ipcMain.handle("get-local-wallpapers",(_) => {
-  const pathToLocalWallpapers = path.join(os.homedir() + "/Wallpapers");
+  const storedPath = getLocalWallpaperPath();
+
+  const pathToLocalWallpapers = (storedPath) ? storedPath : defaultLocalWallpaperPath;
 
   if (!fs.existsSync(pathToLocalWallpapers)) {
     return []
@@ -136,12 +186,13 @@ ipcMain.handle("get-local-wallpapers",(_) => {
 });
 
 
-app.whenReady().then(() => {
+app.whenReady().then(async() => {
   protocol.handle("local-wallpaper", (request) => {
     const filePath = decodeURIComponent(request.url.slice("local-wallpaper://".length));
     return net.fetch("file://" + filePath);
   });
   createWindow();
+  await initStore();
 });
 
 app.on("window-all-closed", () => {
