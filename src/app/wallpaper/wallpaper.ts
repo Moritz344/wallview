@@ -1,9 +1,11 @@
 import { Component,HostListener,OnInit,inject,signal,Input,Output,EventEmitter } from '@angular/core';
 import { Electron } from '../electron';
+import { DownloadPopup } from './download-popup/download-popup';
+import { Download } from './download-popup/download';
 
 @Component({
   selector: 'app-wallpaper',
-  imports: [],
+  imports: [DownloadPopup],
   templateUrl: './wallpaper.html',
   styleUrl: './wallpaper.css',
 })
@@ -20,22 +22,39 @@ export class Wallpaper implements OnInit {
   @Input() pageData: { page: number,total: number} = {page:0,total: 0};
 
   public electron = inject(Electron);
+  public downloadService = inject(Download);
 
   public wallpaperToShowFullscreen = signal<string>("");
   public showFullscreenMode = signal<boolean>(false);
+  public isDownloading = signal<boolean>(false);
+  public fileToDownload = signal<string>("");
 
   constructor() {
   }
 
-  downloadWallpaper(path: string) {}
+  async downloadWallpaper(path: string) {
+    this.isDownloading.set(true);
+
+    const isAlreadyBeingDownloaded = this.downloadService.currentDownloads().some((download: any) => download.url == path);
+    if (isAlreadyBeingDownloaded) { return; }
+
+    this.downloadService.currentDownloads
+      .update((values: any) => [...values,{ name: path.split("/").at(-1),url: path}])
+    await this.electron.downloadWallpaper(path);
+  }
 
   showWallpaper(path: string) {
     this.electron.openWallpaperInFolder(path);
   }
 
+  onCloseDownloadPopup(popup: { url: string,name: string}) {
+    this.downloadService.currentDownloads.update(downloads =>
+      downloads.filter((x: any) => x !== popup)
+    );
+  }
 
-  onWallpaper(wallpaper: { path: string,name: string}) {
-    console.log(wallpaper);
+
+  onWallpaper(wallpaper: any) {
     if (this.type == "local") {
       this.showWallpaper(wallpaper.path);
     } else {
