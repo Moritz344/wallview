@@ -61,7 +61,6 @@ ipcMain.handle("search-wallhaven",async(_,params) => {
       .join(","))
     urlParams.append("resolution",params.resolution);
     urlParams.append("page",params.page);
-    console.log(urlParams.toString())
 
     const response = await fetch(wallhavenBaseUrl + "/search?" + urlParams.toString())
     if (!response) {
@@ -121,7 +120,6 @@ ipcMain.handle("open-external", async (_, url) => {
 ipcMain.handle("open-wallpaper", async (_, path) => {
   const correctPath = path.split("///")[1];
   shell.showItemInFolder("/" + correctPath);
-  console.log("open ", correctPath);
 });
 
 ipcMain.handle("exit",(_) => {
