@@ -10,6 +10,19 @@ img {
   overflow-x: hidden;
 }
 
+
+.download-container {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
 .container-items {
   display: grid;
   grid-template-columns: repeat(auto-fill,minmax(300px,1fr));

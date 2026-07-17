@@ -10,6 +10,14 @@
     }
 }
 
+@if (downloadService.currentDownloads().length > 0) {
+  <div class="download-container">
+      @for (download of downloadService.currentDownloads(); track $index) {
+        <app-download-popup [data]="download" (close)="onCloseDownloadPopup($event)"></app-download-popup>
+      }
+  </div>
+}
+
 <div class="container">
   <div class="container-items">
     @for (wallpaper of wallpapers(); track $index) {
