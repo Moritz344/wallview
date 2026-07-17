@@ -8,6 +8,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
   openExternalLink: (url) => ipcRenderer.invoke("open-external",url),
   openAboutWindow: () => ipcRenderer.invoke("open-about"),
   getAboutData: () => ipcRenderer.invoke("get-about-data"),
+  openLocalWallpaperPath: () => ipcRenderer.invoke("open-local-wallpaper"),
   closeElectronWindow: (name) => ipcRenderer.invoke("close-electron-window",name),
-  searchWallhaven: (params) => ipcRenderer.invoke("search-wallhaven",params)
+  searchWallhaven: (params) => ipcRenderer.invoke("search-wallhaven",params),
+  downloadWallpaper: (path) => ipcRenderer.invoke("download-wallpaper",path),
 });
