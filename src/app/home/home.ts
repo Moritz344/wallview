@@ -5,6 +5,7 @@ import { Settings } from '../settings';
 import { Wallpaper } from '../wallpaper/wallpaper';
 import { Electron } from '../electron';
 import { Wallhaven } from '../wallhaven';
+import { SearchParameter, WallpaperCategories, WallpaperFile } from './home.types';
 
 // TODO: download wallhavenw wallpapers
 // TODO: open wallpaper in folder
@@ -29,12 +30,12 @@ export class Home implements OnInit {
 
   public readonly loadQuantity = signal<number>(24);
 
-  public localWallpapers = signal<any[]>([]);
-  public currentLoadedLocalWallpapers = signal<any[]>([]);
+  public localWallpapers = signal<WallpaperFile[]>([]);
+  public currentLoadedLocalWallpapers = signal<WallpaperFile[]>([]);
 
   public wallhavenWallpapers = signal<string[]>([]);
   public currentLoadedWallhavenWallpapers = signal<string[]>([]);
-  public searchParameter = signal<any>({
+  public searchParameter = signal<SearchParameter>({
     q: "",
     categories: [
       { name: "Anime",isChecked: true },
@@ -56,6 +57,7 @@ export class Home implements OnInit {
 
   constructor() {
       effect(() => {
+        this.settings.localWallpaperPath();
         this.tab();
         this.initWallpapers();
     });
@@ -92,14 +94,14 @@ export class Home implements OnInit {
   }
 
   onChangeCategory(name: string, isChecked: boolean) {
-    const uncheckedCategories = this.searchParameter().categories.filter((category: any) => !category.isChecked);
+    const uncheckedCategories = this.searchParameter().categories.filter((category: WallpaperCategories) => !category.isChecked);
     if (uncheckedCategories.length == 2 && isChecked) {
       return;
     }
     let selected = !isChecked;
     this.searchParameter.update(paremeter => ({
       ...paremeter,
-      categories: paremeter.categories.map((c: any) =>
+      categories: paremeter.categories.map((c: WallpaperCategories) =>
         c.name === name ? { ...c, isChecked: selected } : c
       )
     }));
@@ -110,7 +112,8 @@ export class Home implements OnInit {
   async searchLocalWallpapers() {
     this.isLoading.set(true);
     const wallpapers = await this.electron.getLocalWallpapers();
-    let filteredWallpapers = wallpapers.filter((wallpaper: { name: string,path: string}) => wallpaper.name.includes(this.searchParameter().q));
+    const filteredWallpapers = wallpapers
+      .filter((wallpaper: { name: string,path: string}) => wallpaper.name.includes(this.searchParameter().q));
     this.localWallpapers.set(filteredWallpapers);
     this.currentLoadedLocalWallpapers.set(this.localWallpapers().slice(0,this.loadQuantity()));
     this.isLoading.set(false);
