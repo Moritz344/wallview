@@ -1,4 +1,3 @@
-
 @if (menuSelected()) {
   <app-menu (close)="this.menuSelected.set(false)"></app-menu>
 }
@@ -11,7 +10,7 @@
   </div>
   <div class="options-middle">
     <button (click)="onSwitchTab('local')"  [class.selected]="tab() == 'local'">
-      <img style="margin-right: 5px" width="20" height="20" src="wallpaper.svg">Local
+      <img style="margin-right: 5px" width="18" height="18" src="wallpaper.svg">Local
     </button>
     <button (click)="onSwitchTab('browse')"  [class.selected]="tab() == 'browse'">
     <img style="margin-right: 5px" width="20" height="20" src="global.svg">  Wallhaven
