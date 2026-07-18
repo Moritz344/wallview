@@ -6,13 +6,15 @@
   z-index: 1000;
   left: 0;
   height: 50px;
-  background-color: var(--bg-secondary);
+  background-color: var(--header-bg-color);
   -webkit-app-region: drag;
 }
 
 .options-right {
   display: flex;
   position: absolute;
+  justify-content:center;
+  flex-direction: row;
   gap: 10px;
   top: 13px;
   right: 10px;
@@ -37,22 +39,28 @@
 
 .menu {
   display: flex;
-  border-radius: 10px;
-  align-items: center;
   justify-content: center;
+  border-radius: 10px;
   width: 30px;
-  height: 25px;
+  align-items: center;
+  padding: 0;
+  height: 27px;
   background: transparent;
   -webkit-app-region: no-drag;
 }
 
+.menu img {
+  width: 17px;
+  height: 17px;
+}
+
 
 .options-right .menu.selected {
-  background-color: var(--hover-color);
+  background-color: var(--button-color);
 }
 
 .options-right button:hover{
-  background-color: var(--hover-color);
+  background-color: var(--button-color);
 }
 
 .options-middle {
@@ -73,7 +81,7 @@ img {
   height: 40px;
   font-weight: bold;
   user-select: none;
-  font-size: 19px;
+  font-size: 17px;
   color: white;
   -webkit-app-region: no-drag;
   border-radius: 10px;
@@ -81,9 +89,9 @@ img {
 }
 
 .options-middle button:hover{
-  background: var(--hover-color);
+  background: var(--button-color);
 }
 
 .options-middle button.selected {
-  background: var(--hover-color);
+  background: var(--button-color);
 }
