@@ -80,6 +80,7 @@ ipcMain.handle("search-wallhaven",async(_,params) => {
 ipcMain.handle("close-electron-window",async(_,name) => {
   if (name == "about") {
     aboutWindow.close();
+    aboutWindow = null;
   }
 
 })
@@ -100,6 +101,7 @@ ipcMain.handle("get-about-data",async () => {
 })
 
 ipcMain.handle("open-about",async () => {
+   if (aboutWindow) { return; }
    aboutWindow = new BrowserWindow({
       maxWidth: 400,
       maxHeight: 200,
