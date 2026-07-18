@@ -25,7 +25,7 @@
 }
 
 .search button.selected {
-  background-color: var(--hover-color);
+  background-color: var(--button-color);
 }
 
 .search select {
