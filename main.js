@@ -101,8 +101,8 @@ ipcMain.handle("get-about-data",async () => {
 
 ipcMain.handle("open-about",async () => {
    aboutWindow = new BrowserWindow({
-      width: 400,
-      height: 200,
+      maxWidth: 400,
+      maxHeight: 200,
       frame: false,
       parent: win,
       modal: true,
