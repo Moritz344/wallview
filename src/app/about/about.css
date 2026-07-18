@@ -1,3 +1,11 @@
+.screen {
+  background-color: #222226;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 
 .container {
   display: flex;
@@ -38,7 +46,7 @@ a {
 }
 
 .exit:hover {
-  background-color: var(--hover-color);
+  background-color: var(--button-color);
 }
 
 a:hover{
