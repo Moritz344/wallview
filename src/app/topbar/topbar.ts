@@ -28,4 +28,12 @@ export class Topbar {
     this.electron.exit();
   }
 
+  onToggleMenu() {
+    this.menuSelected.update(x => !x)
+  }
+
+  onMinimize() {
+    this.electron.minimize();
+  }
+
 }

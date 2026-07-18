@@ -5,8 +5,8 @@
 
 <div class="container">
   <div class="options-right">
-    <button class="button-with-bg"><img src="minimize.svg"></button>
-    <button class="menu" (click)="this.menuSelected.update(x => !x)" [class.selected]="menuSelected()"><img src="menu.svg"></button>
+    <button class="button-with-bg" (click)="onMinimize()"><img src="minimize.svg"></button>
+    <button class="menu" (click)="onToggleMenu()" [class.selected]="menuSelected()"><img src="menu.svg"></button>
     <button class="button-with-bg" (click)="onClose()"><img src="close.svg"></button>
   </div>
   <div class="options-middle">
