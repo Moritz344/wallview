@@ -23,11 +23,6 @@ img {
 }
 
 
-.container-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
-  gap: 30px;
-}
 
 .wallpaper-name {
   display: block;
@@ -38,19 +33,26 @@ img {
 }
 
 
-.container-items img{
-  display: block;
-  width: 350px;
-  height: 250px;
-  user-select: none;
-  max-width: 100%;
-  background-color: var(--bg-secondary);
+.container-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.container-items img {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  object-fit: cover;
   border-radius: 10px;
+  background-color: var(--bg-secondary);
   transition: 0.3s ease;
 }
 
+
 .container-items img:hover{
   transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .container-bottom {
@@ -91,33 +93,6 @@ img {
 }
 
 
-.fullscreen-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9000;
-  width: fit-content;
-}
-.fullscreen-container img {
-  width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-}
-
-.fullscreen-close img {
-  width: 50px;
-}
-
-.fullscreen-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 80px;
-  background: transparent;
-  z-index: 9001;
-}
-
 .open-in-folder {
   position: fixed;
   bottom: 70px;
@@ -138,13 +113,6 @@ img {
 }
 
 
-
-.fullscreen-close button:hover{
-}
-
-.fullscreen-close img {
-  filter: brightness(0) invert(1);
-}
 
 .screen {
   position: fixed;
