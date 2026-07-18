@@ -1,4 +1,4 @@
-import { Component,HostListener,OnInit,inject,signal,Input,Output,EventEmitter } from '@angular/core';
+import { Component,inject,signal,Input,Output,EventEmitter } from '@angular/core';
 import { Electron } from '../electron';
 import { DownloadPopup } from './download-popup/download-popup';
 import { Download } from './download-popup/download';
@@ -9,7 +9,7 @@ import { Download } from './download-popup/download';
   templateUrl: './wallpaper.html',
   styleUrl: './wallpaper.css',
 })
-export class Wallpaper implements OnInit {
+export class Wallpaper {
   @Input() wallpapers = signal<any[]>([]);
   @Input() mode: "load-more" | "pagination" = "load-more";
   @Input() showInFolderOption: boolean = false;
@@ -29,6 +29,7 @@ export class Wallpaper implements OnInit {
 
   constructor() {
   }
+
 
   async downloadWallpaper(path: string) {
     const isAlreadyBeingDownloaded = this.downloadService.currentDownloads().some((download: any) => download.url == path);
@@ -83,8 +84,6 @@ export class Wallpaper implements OnInit {
     this.electron.openWallpaperInFolder(this.wallpaperToShowFullscreen());
   }
 
-  ngOnInit(): void {
-  }
 
 
 
