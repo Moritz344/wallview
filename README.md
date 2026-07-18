@@ -1,11 +1,11 @@
 # Wallview
 view local wallpapers and browse wallhaven wallpapers
 
-<img width="1474" height="984" alt="screenshot-2026-07-16_19-52-13" src="https://github.com/user-attachments/assets/7bc7a192-0c0f-4dfc-a247-9ccf838636d5" />
+<img width="1447" height="915" alt="Bildschirmfoto vom 2026-07-18 17-59-22" src="https://github.com/user-attachments/assets/f4331f5e-9c34-49d7-8cb2-baf582763548" />
 
 <details>
   <summary>More Screenshots: </summary>
-  <img width="1474" height="984" alt="screenshot-2026-07-16_19-52-43" src="https://github.com/user-attachments/assets/88ef2434-6c61-42cf-9cb7-fc047db0343c" />
+  <img width="1225" height="879" alt="Bildschirmfoto vom 2026-07-18 18-01-22" src="https://github.com/user-attachments/assets/9202bcc5-0e41-4129-b80a-9232b7d63fa4" />
 
 </details>
 
