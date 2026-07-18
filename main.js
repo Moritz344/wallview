@@ -21,8 +21,8 @@ function getLocalWallpaperPath() {
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 800,
     frame: false,
     webPreferences: {
       nodeIntegration: false,
@@ -32,7 +32,7 @@ function createWindow() {
   });
   if (process.env.ELECTRON_DEV) {
     win.loadURL("http://localhost:4200/");
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
   } else {
     win.loadFile(path.join(app.getAppPath(), 'dist/'));
   }
@@ -55,12 +55,16 @@ ipcMain.handle("search-wallhaven",async(_,params) => {
     urlParams.append("q",params.q);
     urlParams.append("sorting",params.sorting);
     urlParams.append("order",params.order);
-    urlParams.append("categories",params.categories
-      .filter(category => category.isChecked)
-      .map(category => category.name.toLowerCase())
-      .join(","))
-    urlParams.append("resolution",params.resolution);
+
+    const general = params.categories.find(c => c.name === "General")?.isChecked ? "1" : "0";
+    const anime = params.categories.find(c => c.name === "Anime")?.isChecked ? "1" : "0";
+    const people = params.categories.find(c => c.name === "People")?.isChecked ? "1" : "0";
+    urlParams.append("categories", general + anime + people);
+
+    urlParams.append("resolutions",params.resolution);
+    urlParams.append("purity", params.purity);
     urlParams.append("page",params.page);
+    console.log(urlParams);
 
     const response = await fetch(wallhavenBaseUrl + "/search?" + urlParams.toString())
     if (!response) {
@@ -97,8 +101,8 @@ ipcMain.handle("get-about-data",async () => {
 
 ipcMain.handle("open-about",async () => {
    aboutWindow = new BrowserWindow({
-      width: 900,
-      height: 650,
+      width: 400,
+      height: 200,
       frame: false,
       parent: win,
       modal: true,
@@ -117,13 +121,21 @@ ipcMain.handle("open-external", async (_, url) => {
   await shell.openExternal(url);
 });
 
-ipcMain.handle("open-wallpaper", async (_, path) => {
-  const correctPath = path.split("///")[1];
-  shell.showItemInFolder("/" + correctPath);
+ipcMain.handle("open-wallpaper", async (_, fullPath) => {
+  let correctPath = (fullPath) ? "/" + fullPath.split("///")[1] : getLocalWallpaperPath() || defaultLocalWallpaperPath ;
+  if (fullPath) {
+    shell.showItemInFolder(correctPath);
+  } else {
+    shell.openPath(correctPath);
+  }
 });
 
 ipcMain.handle("exit",(_) => {
   app.quit()
+});
+
+ipcMain.handle("minimize", (_) => {
+  BrowserWindow.getFocusedWindow()?.minimize()
 });
 
 ipcMain.handle("open-local-wallpaper",async() => {
@@ -167,7 +179,7 @@ ipcMain.handle("download-wallpaper",async(_,url) => {
 ipcMain.handle("get-local-wallpapers",(_) => {
   const storedPath = getLocalWallpaperPath();
 
-  const pathToLocalWallpapers = (storedPath) ? storedPath : defaultLocalWallpaperPath;
+  const pathToLocalWallpapers = (storedPath) ? storedPath : getLocalWallpaperPath();
 
   if (!fs.existsSync(pathToLocalWallpapers)) {
     return []
@@ -177,10 +189,17 @@ ipcMain.handle("get-local-wallpapers",(_) => {
   const files = fs.readdirSync(pathToLocalWallpapers,"utf-8");
 
   let filteredFiles = files.filter( x => allowedFileTypes.includes(x.split(".")[1]));
-  return filteredFiles.map(name => ({
-    path: "local-wallpaper://" + pathToLocalWallpapers + "/" + name,
-    name: name
-  }));
+
+  return filteredFiles.map(name => {
+    const fullPath = path.join(pathToLocalWallpapers, name);
+    const stat = fs.statSync(fullPath);
+    return {
+      path: "local-wallpaper://" + fullPath,
+      name,
+      modified: new Date(stat.mtime).getTime(),
+      created: new Date(stat.birthtime).getTime(),
+    };
+  });
 });
 
 
