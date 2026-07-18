@@ -40,7 +40,7 @@ export class Home implements OnInit {
     ],
     category: "",
     purity: "100",
-    sorting: "toplist",
+    sorting: "views",
     order: "desc",
     topRange: "1M",
     atleast: "1920x1080",
