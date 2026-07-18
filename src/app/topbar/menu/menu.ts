@@ -20,6 +20,10 @@ export class Menu {
     this.close.emit();
   }
 
+  onOpenLocalWallpaperFolder() {
+    this.electron.openWallpaperInFolder("");
+  }
+
   async onChangeLocalWallpaperPath() {
     const newPath = await this.electron.changeLocalWallpaperPath();
     if (!newPath) {
