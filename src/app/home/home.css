@@ -21,7 +21,7 @@
 
 
 .search button:hover {
-  background-color: var(--hover-color);
+  background-color: var(--button-color);
 }
 
 .search button.selected {
@@ -38,7 +38,7 @@
   border-radius: 10px;
   color: white;
   padding: 10px;
-  z-index: 1000;
+  z-index: 999;
 }
 
 .search-btn img {
