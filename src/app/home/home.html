@@ -32,18 +32,20 @@
       [data]="wallhaven.resolutions()">
     </app-dropdown>
   }
-  <button class="search-btn" (click)="initWallpapers()"><img src="search.svg"></button>
+  <button class="search-btn" (click)="initWallpapers()">Search</button>
 </div>
 
   @if (tab() == "local") {
-    <app-wallpaper
-    [wallpapers]="currentLoadedLocalWallpapers"
-    (load)="loadLocalWallpapers()"
-    [showInFolderOption]="true"
-    [wallpapersTotal]="localWallpapers().length"
-    type="local"
-    mode="load-more">
-    </app-wallpaper>
+    @if (!isLoading()) {
+      <app-wallpaper
+      [wallpapers]="currentLoadedLocalWallpapers"
+      (load)="loadLocalWallpapers()"
+      [showInFolderOption]="true"
+      [wallpapersTotal]="localWallpapers().length"
+      type="local"
+      mode="load-more">
+      </app-wallpaper>
+    }
   } @else{
     @if (!isLoading()) {
       <app-wallpaper
