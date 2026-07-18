@@ -10,6 +10,10 @@ export class Electron {
     return await (window as any).electronAPI.exit();
   }
 
+  async minimize() {
+    return await (window as any).electronAPI.minimize();
+  }
+
   async getWallhavenWallpapers(searchParameter: any) {
     return await (window as any).electronAPI.searchWallhaven(searchParameter);
   }
