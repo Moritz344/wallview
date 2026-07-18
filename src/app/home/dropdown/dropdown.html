@@ -1,0 +1,23 @@
+
+<div class="container">
+  @if (showMore()) {
+      <div (click)="onToggleMore()" class="screen"></div>
+      <div [class.simple]="mode == 'simple'" [class.multiple]="mode == 'multiple'">
+          @for (option of data; track $index) {
+            <button (click)="onSelect(option)" [class.selected]="selectedValue.includes(option) && mode == 'multiple'" class="dropdown-big-item">{{ option }}</button>
+          }
+      </div>
+    }
+    <button class="dropdown-small" (click)="onToggleMore()">
+      <span style="color: white">
+        @if (mode == "simple") {
+          {{ selectedValue }}
+        } @else {
+          {{ selectedValue[0] }}
+          @if (selectedValue.length > 1) {
+            + {{ selectedValue.length }}
+          }
+        }</span>
+      <img class="white-img" width="20" src="down.svg">
+    </button>
+</div>
