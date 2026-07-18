@@ -5,11 +5,15 @@ import { Settings } from '../settings';
 import { Wallpaper } from '../wallpaper/wallpaper';
 import { Electron } from '../electron';
 import { Wallhaven } from '../wallhaven';
-import { SearchParameter, WallpaperCategories, WallpaperFile } from './home.types';
+import { SearchParameter, WallpaperFile } from './home.types';
+import { Dropdown } from './dropdown/dropdown';
+
+// TODO: contextmenu on wallpapers
+// TODO: Downloads Tab
 
 @Component({
   selector: 'app-home',
-  imports: [Topbar,Wallpaper,FormsModule],
+  imports: [Topbar,Wallpaper,FormsModule,Dropdown],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -30,16 +34,27 @@ export class Home implements OnInit {
   public searchParameter = signal<SearchParameter>({
     q: "",
     categories: [
-      { name: "Anime",isChecked: true },
-      { name: "People",isChecked: true },
-      { name: "General",isChecked: true }
+      { name: "General", value: "100", isChecked: true },
+      { name: "Anime",   value: "010", isChecked: true },
+      { name: "People",  value: "001", isChecked: true }
     ],
-    purity: 0,
+    category: "",
+    purity: "100",
     sorting: "toplist",
     order: "desc",
     topRange: "1M",
     atleast: "1920x1080",
-    resolution: "1920x1080",
+    resolution: [
+      "1920x1080",
+      "1920x1200",
+      "2560x1440",
+      "2560x1600",
+      "3840x2160",
+      "1920x1440",
+      "2560x1080",
+      "3440x1440",
+      "3840x1600",
+    ],
     page: 1
   });
 
@@ -76,25 +91,31 @@ export class Home implements OnInit {
   }
 
   nextPage() {
-    this.searchParameter().page += 1;
-    this.searchWallhavenWallpapers();
+    if (this.searchParameter().page < this.totalWallhavenPages()) {
+      this.searchParameter().page += 1;
+      this.searchWallhavenWallpapers();
+    }
   }
 
   prevPage() {
-    this.searchParameter().page -= 1;
-    this.searchWallhavenWallpapers();
+    if (this.searchParameter().page > 1) {
+      this.searchParameter().page -= 1;
+      this.searchWallhavenWallpapers();
+    }
   }
 
-  onChangeCategory(name: string, isChecked: boolean) {
-    const uncheckedCategories = this.searchParameter().categories.filter((category: WallpaperCategories) => !category.isChecked);
-    if (uncheckedCategories.length == 2 && isChecked) {
-      return;
-    }
-    let selected = !isChecked;
-    this.searchParameter.update(paremeter => ({
-      ...paremeter,
-      categories: paremeter.categories.map((c: WallpaperCategories) =>
-        c.name === name ? { ...c, isChecked: selected } : c
+  onChangeCategory(name: string) {
+    const categories = this.searchParameter().categories;
+    const category = categories.find(c => c.name === name);
+    if (!category) return;
+
+    const checkedCount = categories.filter(c => c.isChecked).length;
+    if (category.isChecked && checkedCount === 1) return;
+
+    this.searchParameter.update(p => ({
+      ...p,
+      categories: categories.map(c =>
+        c.name === name ? { ...c, isChecked: !c.isChecked } : c
       )
     }));
   }
@@ -119,5 +140,6 @@ export class Home implements OnInit {
     this.isLoading.set(false);
     this.totalWallhavenPages.set(response.meta.total);
   }
+
 
 }
