@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/Moritz344/wallpaper-selector/compare/v0.0.3...v0.0.4) (2026-07-24)
+
+
+### Features
+
+* add button to open the local wallpaper folder ([9ef9100](https://github.com/Moritz344/wallpaper-selector/commit/9ef9100c83ab0f9b1b1d20351b6077b4934e8300))
+
+
+### Bug Fixes
+
+* category search not working,smaller width and height for about window,implement minimizing window, ([2f12a4d](https://github.com/Moritz344/wallpaper-selector/commit/2f12a4d6053b32c92652a997895e81881d972440))
+* check page before going to the next or previous page,refactor searchparameter ([dd3de94](https://github.com/Moritz344/wallpaper-selector/commit/dd3de94c25018ce8ec11b175de9817cd7cae3c6d))
+* make window draggable ([37e24ad](https://github.com/Moritz344/wallpaper-selector/commit/37e24ad47d196af4b17a03084de1ea25b0b6a202))
+* max width and height for about window ([0fab6da](https://github.com/Moritz344/wallpaper-selector/commit/0fab6dabd38d78d9d3af7e47c85ad712485c0065))
+* only allow one about window instance ([bb53851](https://github.com/Moritz344/wallpaper-selector/commit/bb53851027ebeb1323b0b471e5e6ee167bfd1aeb))
+* showing wallpapers while loading for local,remove search icon ([127468c](https://github.com/Moritz344/wallpaper-selector/commit/127468c3c4b37055ab5a8317fef51cd2829d16f1))
+* wrong path to project root ([47dfcaa](https://github.com/Moritz344/wallpaper-selector/commit/47dfcaa2aa394c8fc3962d6e172c1d890d3c34eb))
+
 ### [0.0.3](https://github.com/Moritz344/wallpaper-selector/compare/v0.0.2...v0.0.3) (2026-07-17)
 
 

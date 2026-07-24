@@ -3,7 +3,7 @@
   "description": "view local wallpaper and browse wallpaper from wallhaven",
   "author": "Moritz Maier",
   "main": "main.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "ng": "ng",
     "release": "standard-version",
