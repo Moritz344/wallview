@@ -48,7 +48,7 @@ modules:
       - install -Dm755 wallview.sh /app/bin/wallview
     sources:
       - type: dir
-        path: .
+        path: ../../
 
       - type: file
         path: io.github.Moritz344.wallview.desktop
