@@ -30,20 +30,14 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
   });
-  if (process.env.ELECTRON_DEV) {
-    win.loadURL("http://localhost:4200/");
-    //win.webContents.openDevTools();
-  } else {
-    win.loadFile(path.join(app.getAppPath(), 'dist/'));
-  }
-
+  //win.webContents.openDevTools();
 }
 
 function loadAngularRoute(window, route = "") {
   if (process.env.ELECTRON_DEV) {
     window.loadURL(`http://localhost:4200/#/${route}`);
   } else {
-    window.loadFile(path.join(__dirname, "dist/launcher/browser/index.html"), {
+    window.loadFile(path.join(__dirname, 'dist/wallview/browser/index.html'), {
       hash: route,
     });
   }
@@ -64,7 +58,6 @@ ipcMain.handle("search-wallhaven",async(_,params) => {
     urlParams.append("resolutions",params.resolution);
     urlParams.append("purity", params.purity);
     urlParams.append("page",params.page);
-    console.log(urlParams);
 
     const response = await fetch(wallhavenBaseUrl + "/search?" + urlParams.toString())
     if (!response) {
@@ -211,6 +204,7 @@ app.whenReady().then(async() => {
     return net.fetch("file://" + filePath);
   });
   createWindow();
+  loadAngularRoute(win);
   await initStore();
 });
 
