@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.Moritz344.wallview</id>
+
+  <name>Wallview</name>
+  <summary>View local wallpapers and browse wallhaven wallpapers</summary>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+
+  <developer id="io.github.Moritz344">
+    <name>Moritz Maier</name>
+  </developer>
+
+  <description>
+    <p>
+      Wallview lets you view your local wallpapers and browse, search, and download
+      wallpapers from wallhaven.cc.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>View your local wallpapers</li>
+      <li>Browse wallhaven wallpapers</li>
+      <li>Download wallhaven wallpapers</li>
+      <li>Change local wallpaper path</li>
+      <li>Show wallpaper in folder</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">io.github.Moritz344.wallview.desktop</launchable>
+
+  <url type="homepage">https://github.com/Moritz344/wallview</url>
+  <url type="bugtracker">https://github.com/Moritz344/wallview/issues</url>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://github.com/user-attachments/assets/c48c4874-ab17-4d24-accd-932a910dcde0</image>
+      <caption>Main window</caption>
+    </screenshot>
+  </screenshots>
+
+  <content_rating type="oars-1.1" />
+
+  <releases>
+    <release version="0.0.3" date="2026-07-18">
+      <description>
+        <p>Initial release.</p>
+      </description>
+    </release>
+  </releases>
+</component>

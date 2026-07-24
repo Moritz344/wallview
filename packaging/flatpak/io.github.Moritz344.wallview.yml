@@ -1,0 +1,64 @@
+app-id: io.github.Moritz344.wallview
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node22
+base: org.electronjs.Electron2.BaseApp
+base-version: '24.08'
+command: /app/bin/wallview
+
+separate-locales: false
+
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --socket=pulseaudio
+  - --share=network
+  - --device=dri
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --talk-name=com.canonical.indicator.application
+  - --talk-name=org.freedesktop.Notifications
+  - --env=ELECTRON_OZONE_PLATFORM_HINT=auto
+
+modules:
+  - name: wallview
+    buildsystem: simple
+    build-options:
+      env:
+        npm_config_cache: /run/build/wallview/npm-cache
+        npm_config_offline: 'true'
+        PATH: /usr/lib/sdk/node22/bin:/run/ccache/bin:/app/bin:/usr/bin
+        CI: 'true'
+    build-commands:
+      - npm install --offline
+      - npm run build
+      - mkdir -p /app/wallview
+      - mkdir -p /app/share/applications
+      - mkdir -p /app/share/metainfo
+      - mkdir -p /app/bin
+      - cp -r dist/ /app/wallview/dist/
+      - cp -r node_modules/ /app/wallview/node_modules/
+      - cp main.js preload.js package.json /app/wallview/
+      - mkdir -p /app/share/icons/hicolor/scalable/apps
+      - cp public/wallpaper.svg /app/share/icons/hicolor/scalable/apps/io.github.Moritz344.wallview.svg
+      - cp io.github.Moritz344.wallview.desktop /app/share/applications/
+      - cp io.github.Moritz344.wallview.metainfo.xml /app/share/metainfo/
+      - install -Dm755 wallview.sh /app/bin/wallview
+    sources:
+      - type: dir
+        path: .
+
+      - type: file
+        path: io.github.Moritz344.wallview.desktop
+
+      - type: file
+        path: io.github.Moritz344.wallview.metainfo.xml
+
+      - generated-sources.json
+
+      - type: script
+        dest-filename: wallview.sh
+        commands:
+          - exec /app/wallview/node_modules/electron/dist/electron --no-sandbox /app/wallview/main.js "$@"

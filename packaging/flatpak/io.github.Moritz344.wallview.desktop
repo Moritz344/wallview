@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Wallview
+Comment=View local wallpapers and browse wallhaven wallpapers
+Icon=io.github.Moritz344.wallview
+Exec=wallview %U
+Type=Application
+Categories=Graphics;Utility;
+Keywords=wallpaper;wallhaven;
+StartupNotify=true
