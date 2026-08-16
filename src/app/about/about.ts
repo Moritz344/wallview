@@ -17,7 +17,7 @@ export class About {
   }
 
   openGithub() {
-    this.electron.openExternalLink("https://github.com/Moritz344");
+    this.electron.openExternalLink("https://github.com/Moritz344/wallview");
   }
 
   onClose() {
