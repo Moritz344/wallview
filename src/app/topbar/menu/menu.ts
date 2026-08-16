@@ -35,4 +35,8 @@ export class Menu {
   onAbout() {
     this.electron.openAbout();
   }
+
+  onExit() {
+    this.electron.exit();
+  }
 }
