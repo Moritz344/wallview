@@ -1,5 +1,6 @@
 .search {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   position: absolute;
   margin-top: 70px;
