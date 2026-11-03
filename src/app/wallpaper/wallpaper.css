@@ -13,6 +13,7 @@ img {
 
 .placeholder {
   position: absolute;
+  user-select:none;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,8 +23,13 @@ img {
   transform: translate(-50%,-50%)
 }
 
-.placeholder span {
+.placeholder h1{
   font-size: 30px;
+  margin: 0;
+}
+.placeholder span{
+  font-size: 20px
+
 }
 
 .download-container {

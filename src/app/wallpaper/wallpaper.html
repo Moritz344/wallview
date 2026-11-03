@@ -34,8 +34,16 @@
   </div>
   } @else {
     <div class="placeholder">
-      <img src="search.svg" class="white-img" width="70">
-      <span>No results</span>
+      @if (settings.localWallpaperPath().length > 0) {
+        <img src="search.svg" class="white-img" width="70">
+        <h1>No results</h1>
+        <span>Try searching for something different</span>
+      }@else {
+        <img src="wallpaper.svg" width="100" class="white-img">
+        <h1>No Local Wallpaper path</h1>
+        <span>You can set one below or using the hamburger menu option.</span>
+        <button (click)="onChangeLocalWallpaperPath()">Set Wallpaper Path</button>
+      }
     </div>
   }
 </div>
