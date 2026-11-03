@@ -7,7 +7,7 @@
     }
   </span>
 <div class="search">
-  <input spellcheck="false" [(ngModel)]="searchParameter().q" (keydown.code.enter)="initWallpapers()" placeholder="Search...">
+  <input spellcheck="false" [(ngModel)]="searchParameter().q" (keyup)="initWallpapers()" placeholder="Search...">
   @if (tab() == "browse") {
     @for (category of this.searchParameter().categories; track $index) {
       <button (click)="onChangeCategory(category.name)" [class.selected]="category.isChecked">{{ category.name }}</button>
