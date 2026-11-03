@@ -123,6 +123,12 @@ export class Home implements OnInit {
 
 
   async searchLocalWallpapers() {
+    const path = await this.electron.getLocalWallpaperPath()
+    if (!path) {
+      return;
+    }
+    this.settings.localWallpaperPath.set(path);
+
     this.isLoading.set(true);
     const wallpapers = await this.electron.getLocalWallpapers();
     const filteredWallpapers = wallpapers
