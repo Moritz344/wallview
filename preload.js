@@ -2,6 +2,7 @@ const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electronAPI", {
   exit: () => ipcRenderer.invoke("exit"),
+  getLocalWallpaperPath: () => ipcRenderer.invoke("get-local-wallpaper-path"),
   minimize: () => ipcRenderer.invoke("minimize"),
   getLocalWallpapers: () => ipcRenderer.invoke("get-local-wallpapers"),
   openWallpaper: (path) => ipcRenderer.invoke("open-wallpaper",path),

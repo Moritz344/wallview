@@ -30,7 +30,7 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
   });
-  //win.webContents.openDevTools();
+  win.webContents.openDevTools();
 }
 
 function loadAngularRoute(window, route = "") {
@@ -169,6 +169,10 @@ ipcMain.handle("download-wallpaper",async(_,url) => {
     console.log("error: ",error);
 
   }
+})
+
+ipcMain.handle("get-local-wallpaper-path",(_) => {
+  return getLocalWallpaperPath();
 })
 
 ipcMain.handle("get-local-wallpapers",(_) => {
