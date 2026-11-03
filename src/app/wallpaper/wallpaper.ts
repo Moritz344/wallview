@@ -2,6 +2,7 @@ import { Component,inject,signal,Input,Output,EventEmitter } from '@angular/core
 import { Electron } from '../electron';
 import { DownloadPopup } from './download-popup/download-popup';
 import { Download } from './download-popup/download';
+import { Settings } from '../settings'
 
 @Component({
   selector: 'app-wallpaper',
@@ -23,6 +24,7 @@ export class Wallpaper {
 
   public electron = inject(Electron);
   public downloadService = inject(Download);
+  public settings = inject(Settings);
 
   public wallpaperToShowFullscreen = signal<string>("");
   public showFullscreenMode = signal<boolean>(false);
@@ -50,6 +52,13 @@ export class Wallpaper {
     );
   }
 
+  async onChangeLocalWallpaperPath() {
+    const newPath = await this.electron.changeLocalWallpaperPath();
+    if (!newPath) {
+      return;
+    }
+    this.settings.localWallpaperPath.set(newPath);
+  }
 
   onWallpaper(wallpaper: any) {
     if (this.type == "local") {
