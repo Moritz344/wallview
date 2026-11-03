@@ -12,7 +12,7 @@ export class Menu {
   @Output() close = new EventEmitter<void>();
 
   private electron = inject(Electron);
-  private settings = inject(Settings);
+  public settings = inject(Settings);
 
   constructor() {}
 
