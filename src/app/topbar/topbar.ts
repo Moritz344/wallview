@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Settings } from '../settings';
 import { Electron }  from '../electron';
 import { Menu } from './menu/menu'
+import type { Tab } from '../settings';
 
 @Component({
   selector: 'app-topbar',
@@ -20,7 +21,7 @@ export class Topbar {
 
   constructor() {}
 
-  onSwitchTab(name: "local" | "browse") {
+  onSwitchTab(name: Tab) {
     this.settings.selectedTab.set(name);
   }
 
