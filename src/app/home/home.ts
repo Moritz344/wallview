@@ -29,6 +29,8 @@ export class Home implements OnInit {
   public localWallpapers = signal<WallpaperFile[]>([]);
   public currentLoadedLocalWallpapers = signal<WallpaperFile[]>([]);
 
+  public favouriteWallpapers = signal<WallpaperFile[]>([]);
+
   public wallhavenWallpapers = signal<string[]>([]);
   public currentLoadedWallhavenWallpapers = signal<string[]>([]);
   public searchParameter = signal<SearchParameter>({
@@ -81,6 +83,8 @@ export class Home implements OnInit {
     }
   }
 
+  loadFavouriteWallpapers() {
+  }
 
   loadLocalWallpapers() {
     const start = 0;
@@ -141,6 +145,11 @@ export class Home implements OnInit {
   async searchWallhavenWallpapers() {
     this.isLoading.set(true);
     const response = await this.electron.getWallhavenWallpapers(this.searchParameter());
+    if (response == undefined) {
+      this.settings.wallhavenSearchError.set(true);
+      this.isLoading.set(false);
+      return;
+    }
     this.wallhavenWallpapers.set(response.data);
     this.currentLoadedWallhavenWallpapers.set(this.wallhavenWallpapers().slice(0,this.loadQuantity()));
     this.isLoading.set(false);
