@@ -21,17 +21,28 @@
     }
   </div>
 
-  <div class="container-bottom">
     @if (mode == "load-more") {
+      <div class="container-bottom-load-more">
        @if (wallpapers().length < wallpapersTotal ) {
-        <button (click)="onLoadMore()" [disabled]="wallpapers().length < 5" [class.disabled]="wallpapers().length < 5" class="load-more">Load more</button>
+        <button
+          (click)="onLoadMore()"
+          [disabled]="wallpapers().length < 5"
+          [class.disabled]="wallpapers().length < 5"
+          class="load-more">Load more
+        </button>
        }
+      </div>
     } @else {
-        <button (click)="onPrevPage()">Prev</button>
-        <button (click)="onNextPage()">Next</button>
-        <span style="font-size: 24px;position: absolute;right: 20px;bottom: 13px">{{ pageData.page }}/{{ pageData.total }}</span>
+    <div class="container-bottom-pagination">
+        <div class="container-bottom-middle">
+          <button [class.disabled]="pageData.page == 1" (click)="onPrevPage()">Prev</button>
+          <button [class.disabled]="pageData.page == pageData.total - 1" (click)="onNextPage()">Next</button>
+        </div>
+          <div class="container-bottom-right">
+            <span style="font-size: 24px">{{ pageData.page }}/{{ pageData.total }}</span>
+          </div>
+    </div>
     }
-  </div>
   } @else {
     <div class="placeholder">
         @if (settings.selectedTab() == "local") {
