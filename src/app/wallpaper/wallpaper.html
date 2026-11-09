@@ -75,4 +75,13 @@
   }
 </div>
 
+@if (showPreview()) {
+  <app-preview
+  (next)="onNextWallpaperForPreview()"
+  (prev)="onPreviousWallpaperForPreview()"
+  (close)="showPreview.set(false)"
+  (download)="downloadWallpaper($event)"
+  [path]="previewPath">
+  </app-preview>
+}
 

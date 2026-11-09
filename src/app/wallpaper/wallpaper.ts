@@ -3,10 +3,11 @@ import { Electron } from '../electron';
 import { DownloadPopup } from './download-popup/download-popup';
 import { Download } from './download-popup/download';
 import { Settings } from '../settings'
+import { Preview } from './preview/preview';
 
 @Component({
   selector: 'app-wallpaper',
-  imports: [DownloadPopup],
+  imports: [DownloadPopup,Preview],
   templateUrl: './wallpaper.html',
   styleUrl: './wallpaper.css',
 })
@@ -27,7 +28,9 @@ export class Wallpaper {
   public settings = inject(Settings);
 
   public wallpaperToShowFullscreen = signal<string>("");
-  public showFullscreenMode = signal<boolean>(false);
+
+  public showPreview = signal<boolean>(false);
+  public previewPath = signal<string>("");
 
   constructor() {
   }
@@ -42,9 +45,6 @@ export class Wallpaper {
     await this.electron.downloadWallpaper(path);
   }
 
-  showWallpaper(path: string) {
-    this.electron.openWallpaperInFolder(path);
-  }
 
   onCloseDownloadPopup(popup: { url: string,name: string}) {
     this.downloadService.currentDownloads.update(downloads =>
@@ -61,13 +61,27 @@ export class Wallpaper {
   }
 
   onWallpaper(wallpaper: any) {
-    if (this.type == "local") {
-      this.showWallpaper(wallpaper.path);
-    } else {
-      this.downloadWallpaper(wallpaper.path);
-    }
+      this.showPreview.set(true);
+      this.previewPath.set(wallpaper.path);
+      console.log(wallpaper);
   }
 
+  onNextWallpaperForPreview() {
+    const currentWallpaperPosition = this.wallpapers().findIndex((x: any) => x.path == this.previewPath())
+    if (currentWallpaperPosition == this.wallpapers().length - 1) {
+      return;
+    }
+    this.previewPath.set(this.wallpapers()[currentWallpaperPosition + 1].path);
+  }
+
+  onPreviousWallpaperForPreview() {
+    const currentWallpaperPosition = this.wallpapers().findIndex((x: any) => x.path == this.previewPath())
+    if (currentWallpaperPosition == 0) {
+      return;
+    }
+    this.previewPath.set(this.wallpapers()[currentWallpaperPosition - 1].path);
+
+  }
 
   onOpenExternal(url: string) {
     this.electron.openExternalLink(url);
