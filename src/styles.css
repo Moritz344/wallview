@@ -159,6 +159,7 @@ select {
 button {
   outline: none;
   border: none;
+  user-select: none;
   font-family: var(--default-font);
 }
 
@@ -169,6 +170,7 @@ button:active {
 img {
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 input {
