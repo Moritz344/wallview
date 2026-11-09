@@ -50,6 +50,14 @@ export class Electron {
     return await (window as any).electronAPI.getLocalWallpapers();
   }
 
+  async getFavouriteWallpapers() {
+    return await (window as any).electronAPI.getFavouriteWallpapers();
+  }
+
+  async updateFavouriteWallpaper(wallpaper: { path: string,name: string}) {
+    return await (window as any).electronAPI.updateFavouriteWallpaper(wallpaper);
+  }
+
   async openWallpaperInFolder(path: string) {
     return await (window as any).electronAPI.openWallpaper(path);
   }

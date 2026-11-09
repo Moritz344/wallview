@@ -13,4 +13,6 @@ contextBridge.exposeInMainWorld("electronAPI", {
   closeElectronWindow: (name) => ipcRenderer.invoke("close-electron-window",name),
   searchWallhaven: (params) => ipcRenderer.invoke("search-wallhaven",params),
   downloadWallpaper: (path) => ipcRenderer.invoke("download-wallpaper",path),
+  updateFavouriteWallpaper: (path) => ipcRenderer.invoke("update-favourite-wallpaper",path),
+  getFavouriteWallpapers: () => ipcRenderer.invoke("get-favourite-wallpapers")
 });

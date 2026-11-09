@@ -43,6 +43,21 @@ function loadAngularRoute(window, route = "") {
   }
 }
 
+ipcMain.handle("get-favourite-wallpapers",async() => {
+  return store.get("favourites");
+});
+
+ipcMain.handle("update-favourite-wallpaper",async(_,wallpaper) => {
+  let favouriteWallpapers = store.get("favourites") ?? [];
+  const wallpaperExists = favouriteWallpapers.some(x => x.path == wallpaper.path);
+  if (!wallpaperExists) {
+    favouriteWallpapers.push(wallpaper);
+    store.set("favourites",favouriteWallpapers);
+  } else {
+    store.set("favourites",favouriteWallpapers.filter(x => x.path != wallpaper.path))
+  }
+});
+
 ipcMain.handle("search-wallhaven",async(_,params) => {
   try {
     const urlParams = new URLSearchParams();
