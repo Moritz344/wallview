@@ -2,8 +2,10 @@
 <span style="position: absolute;right: 20px;top: 80px;font-size: 20px">
     @if (tab() == "local") {
       {{ currentLoadedLocalWallpapers().length }}/{{ localWallpapers().length}}
-    } @else {
+    } @else if (tab() == "browse") {
       {{ currentLoadedWallhavenWallpapers().length }}/{{ wallhavenWallpapers().length }}
+    }@else if (tab() == "fav"){
+      {{ currentLoadedFavouriteWallpapers().length }}/{{ favouriteWallpapers().length }}
     }
   </span>
 <div class="search">
