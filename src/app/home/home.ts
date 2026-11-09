@@ -29,7 +29,7 @@ export class Home implements OnInit {
   public localWallpapers = signal<WallpaperFile[]>([]);
   public currentLoadedLocalWallpapers = signal<WallpaperFile[]>([]);
 
-  public favouriteWallpapers = signal<WallpaperFile[]>([]);
+  public favouriteWallpapers = signal<string[]>([]);
 
   public wallhavenWallpapers = signal<string[]>([]);
   public currentLoadedWallhavenWallpapers = signal<string[]>([]);
@@ -78,12 +78,22 @@ export class Home implements OnInit {
   initWallpapers() {
     if (this.tab() == "local") {
       this.searchLocalWallpapers();
-    } else {
+    } else if (this.tab() == "browse") {
       this.searchWallhavenWallpapers();
+    } else if (this.tab() == "fav") {
+      this.searchFavouriteWallpapers();
     }
   }
 
-  loadFavouriteWallpapers() {
+  async loadFavouriteWallpapers() {
+    const start = 0;
+    let end = this.favouriteWallpapers().length + this.loadQuantity();
+
+    let wallpapers = await this.electron.getFavouriteWallpapers();
+    wallpapers = wallpapers.slice(start,end);
+
+    console.log(wallpapers);
+    this.favouriteWallpapers.set(wallpapers);
   }
 
   loadLocalWallpapers() {
@@ -139,6 +149,15 @@ export class Home implements OnInit {
       .filter((wallpaper: { name: string,path: string}) => wallpaper.name.includes(this.searchParameter().q));
     this.localWallpapers.set(filteredWallpapers);
     this.currentLoadedLocalWallpapers.set(this.localWallpapers().slice(0,this.loadQuantity()));
+    this.isLoading.set(false);
+  }
+
+  async searchFavouriteWallpapers() {
+    this.isLoading.set(true);
+    let wallpapers = await this.electron.getFavouriteWallpapers();
+    const filteredWallpapers = wallpapers
+      .filter((wallpaper: { name: string,path: string}) => wallpaper.name.includes(this.searchParameter().q));
+    this.favouriteWallpapers.set(filteredWallpapers)
     this.isLoading.set(false);
   }
 
