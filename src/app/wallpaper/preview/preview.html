@@ -8,16 +8,22 @@
       <span class="loader"></span>
     </div>
   }
-  <img (load)="onLoad()" draggable="false" class="container-img" [src]="path()">
+  <img (load)="onLoad()" draggable="false" class="container-img" [src]="path">
   @if (!isLoading()) {
   <div class="bottom-options">
-    <span style="font-size: 20px;margin-top: 3px">{{ path().split("/").at(-1)}}</span>
+    <span style="font-size: 20px;margin-top: 3px">{{ path.split("/").at(-1)}}</span>
     <div class="bottom-options-right">
-      <button (click)="favourite.emit(path())" title="Mark as favourite"><img  src="fav.svg" class="white-img"></button>
+      <button (click)="onFavourite()" title="Mark as favourite">
+        @if (isMarkedAsFavourite()) {
+          <img src="fav.svg" class="white-img">
+        }@else {
+          <img src="not_fav.svg" class="white-img">
+        }
+      </button>
       @if (settings.selectedTab() == "browse") {
-        <button (click)="download.emit(path())" title="Download wallpaper"><img  src="download.svg" class="white-img"></button>
+        <button (click)="download.emit(path)" title="Download wallpaper"><img  src="download.svg" class="white-img"></button>
       }@else if (settings.selectedTab() == "local") {
-        <button (click)="electron.openWallpaperInFolder(path())" title="Open wallpaper in folder"><img width="20" src="open.svg" class="white-img"></button>
+        <button (click)="electron.openWallpaperInFolder(path)" title="Open wallpaper in folder"><img width="20" src="open.svg" class="white-img"></button>
       }
     </div>
   </div>
