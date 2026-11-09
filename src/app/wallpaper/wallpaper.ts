@@ -83,6 +83,11 @@ export class Wallpaper {
 
   }
 
+  async onFavourite(path: string) {
+    const name = path.split("/").at(-1) ?? "";
+    await this.electron.updateFavouriteWallpaper({path: path,name: name});
+  }
+
   onOpenExternal(url: string) {
     this.electron.openExternalLink(url);
   }

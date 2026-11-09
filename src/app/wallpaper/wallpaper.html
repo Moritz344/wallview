@@ -80,8 +80,9 @@
   (next)="onNextWallpaperForPreview()"
   (prev)="onPreviousWallpaperForPreview()"
   (close)="showPreview.set(false)"
+  (favourite)="onFavourite($event)"
   (download)="downloadWallpaper($event)"
-  [path]="previewPath">
+  [path]="previewPath()">
   </app-preview>
 }
 
