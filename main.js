@@ -172,8 +172,19 @@ ipcMain.handle("download-wallpaper",async(_,url) => {
     const fileName = url.split("/").at(-1);
     const filePath = path.join(pathToSaveWallpaperIn, fileName);
 
-    if (!fs.existsSync(pathToSaveWallpaperIn)) { return { success: false }}
+    if (!fs.existsSync(pathToSaveWallpaperIn)) {
+      console.log("Wallpaper already exists in this path.")
+      return { success: false }
+    }
     fs.writeFileSync(filePath,buffer);
+
+    // check if it exists in favourites if so update path to local-wallpaper:// + path
+    const favouriteWallpapers = store.get("favourites")
+    let wallpaperInFavourites = favouriteWallpapers.find(x => x.name == fileName);
+    wallpaperInFavourites.path = "local-wallpaper://" + filePath
+    store.set("favourites",favouriteWallpapers)
+    console.log("wallpaper is in favourites",favouriteWallpapers);
+
     return {
       name: fileName,
       success: true
