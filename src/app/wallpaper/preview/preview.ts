@@ -16,11 +16,13 @@ export class Preview implements OnChanges {
   @Output() next = new EventEmitter<string>();
   @Output() prev = new EventEmitter<string>();
 
-  public isLoading = signal<boolean>(true);
   public settings = inject(Settings);
   public electron = inject(Electron);
 
+  public name = ""
+  public isLoading = signal<boolean>(true);
   public isMarkedAsFavourite = signal<boolean>(false);
+  public isDownloaded = signal<boolean>(false);
 
   @HostListener("window:keydown",['$event'])
   onClose(event: KeyboardEvent) {
@@ -31,7 +33,33 @@ export class Preview implements OnChanges {
 
   ngOnChanges() {
     this.isLoading.set(true);
+    this.name = this.path.split("/").at(-1) ?? ""
     this.checkIfWallpaperIsMarkedAsFavourite();
+    this.checkIfWallpaperIsDownloaded();
+  }
+
+  async checkIfWallpaperIsDownloaded() {
+    const localWallpapers = await this.electron.getLocalWallpapers();
+    console.log(localWallpapers);
+    console.log("Path:",this.path)
+    let isLocalWallpaper = false
+    if (this.path.includes("local-wallpaper")) {
+      isLocalWallpaper = true
+    } else {
+      // search for it
+      console.log("does not start with local-wallpaper so search in local path for it:")
+      isLocalWallpaper = localWallpapers.some((x: any) => x.name == this.name)
+    }
+    this.isDownloaded.set(isLocalWallpaper)
+
+  }
+
+  async onOpenPath() {
+    if (this.path.includes("local-wallpaper")) {
+      this.electron.openWallpaperInFolder(this.path)
+    } else {
+      this.electron.openWallpaperInFolder("local-wallpaper://" +this.settings.localWallpaperPath() + "/" + this.name)
+    }
   }
 
   async checkIfWallpaperIsMarkedAsFavourite() {
@@ -41,6 +69,11 @@ export class Preview implements OnChanges {
     }
 
     this.isMarkedAsFavourite.set(favouriteWallpapers.some((x: {path: string,name: string}) => x.path == this.path))
+  }
+
+  onDownload() {
+    this.isDownloaded.set(true);
+    this.download.emit(this.path)
   }
 
   onFavourite() {
