@@ -181,9 +181,10 @@ ipcMain.handle("download-wallpaper",async(_,url) => {
     // check if it exists in favourites if so update path to local-wallpaper:// + path
     const favouriteWallpapers = store.get("favourites")
     let wallpaperInFavourites = favouriteWallpapers.find(x => x.name == fileName);
-    wallpaperInFavourites.path = "local-wallpaper://" + filePath
-    store.set("favourites",favouriteWallpapers)
-    console.log("wallpaper is in favourites",favouriteWallpapers);
+    if (wallpaperInFavourites) {
+      wallpaperInFavourites.path = "local-wallpaper://" + filePath
+      store.set("favourites",favouriteWallpapers)
+    }
 
     return {
       name: fileName,
