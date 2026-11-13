@@ -40,14 +40,10 @@ export class Preview implements OnChanges {
 
   async checkIfWallpaperIsDownloaded() {
     const localWallpapers = await this.electron.getLocalWallpapers();
-    console.log(localWallpapers);
-    console.log("Path:",this.path)
     let isLocalWallpaper = false
     if (this.path.includes("local-wallpaper")) {
       isLocalWallpaper = true
     } else {
-      // search for it
-      console.log("does not start with local-wallpaper so search in local path for it:")
       isLocalWallpaper = localWallpapers.some((x: any) => x.name == this.name)
     }
     this.isDownloaded.set(isLocalWallpaper)
@@ -86,6 +82,5 @@ export class Preview implements OnChanges {
   }
 
   constructor() {
-    console.log(this.path)
   }
 }
