@@ -23,6 +23,7 @@ export class Topbar {
 
   onSwitchTab(name: Tab) {
     this.settings.selectedTab.set(name);
+    this.settings.searchParameter().q = "";
   }
 
   onClose() {

@@ -34,34 +34,9 @@ export class Home implements OnInit {
 
   public wallhavenWallpapers = signal<string[]>([]);
   public currentLoadedWallhavenWallpapers = signal<string[]>([]);
-  public searchParameter = signal<SearchParameter>({
-    q: "",
-    categories: [
-      { name: "General", value: "100", isChecked: true },
-      { name: "Anime",   value: "010", isChecked: true },
-      { name: "People",  value: "001", isChecked: true }
-    ],
-    category: "",
-    purity: "100",
-    sorting: "views",
-    order: "desc",
-    topRange: "1M",
-    atleast: "1920x1080",
-    resolution: [
-      "1920x1080",
-      "1920x1200",
-      "2560x1440",
-      "2560x1600",
-      "3840x2160",
-      "1920x1440",
-      "2560x1080",
-      "3440x1440",
-      "3840x1600",
-    ],
-    page: 1
-  });
 
   public isLoading = signal<boolean>(false);
+  public searchParameter = this.settings.searchParameter;
 
   public totalWallhavenPages = signal<number>(0);
 
@@ -74,7 +49,8 @@ export class Home implements OnInit {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   initWallpapers() {
     if (this.tab() == "local") {
