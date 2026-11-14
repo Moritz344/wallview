@@ -178,13 +178,7 @@ ipcMain.handle("download-wallpaper",async(_,url) => {
     }
     fs.writeFileSync(filePath,buffer);
 
-    // check if it exists in favourites if so update path to local-wallpaper:// + path
-    const favouriteWallpapers = store.get("favourites")
-    let wallpaperInFavourites = favouriteWallpapers.find(x => x.name == fileName);
-    if (wallpaperInFavourites) {
-      wallpaperInFavourites.path = "local-wallpaper://" + filePath
-      store.set("favourites",favouriteWallpapers)
-    }
+    updatePathFromWallpaperInFavouritesIfNotLocalWhenDownloading(filePath,fileName);
 
     return {
       name: fileName,
@@ -197,6 +191,19 @@ ipcMain.handle("download-wallpaper",async(_,url) => {
 
   }
 })
+
+function updatePathFromWallpaperInFavouritesIfNotLocalWhenDownloading(filePath,fileName) {
+    // When a wallpaper gets downloaded that is in favourites the path must be updated in favourites
+    const favouriteWallpapers = store.get("favourites")
+    if (favouriteWallpapers == undefined || favouriteWallpapers.length == 0) {
+      return;
+    }
+    let wallpaperInFavourites = favouriteWallpapers.find(x => x.name == fileName);
+    if (wallpaperInFavourites) {
+      wallpaperInFavourites.path = "local-wallpaper://" + filePath
+      store.set("favourites",favouriteWallpapers)
+    }
+}
 
 ipcMain.handle("get-local-wallpaper-path",(_) => {
   return getLocalWallpaperPath();
