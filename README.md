@@ -1,15 +1,21 @@
 # Wallview
 view local wallpapers and browse wallhaven wallpapers
-<img width="1389" height="886" alt="Bildschirmfoto vom 2026-07-18 22-08-24" src="https://github.com/user-attachments/assets/c48c4874-ab17-4d24-accd-932a910dcde0" />
+
+<img width="1438" height="904" alt="Bildschirmfoto vom 2026-11-15 00-03-31" src="https://github.com/user-attachments/assets/ad2eae0c-ac77-41b5-b241-38f5e2ed8bb5" />
 
 <details>
   <summary>More Screenshots: </summary>
-  <img width="1314" height="928" alt="Bildschirmfoto vom 2026-07-18 22-10-42" src="https://github.com/user-attachments/assets/6a939d62-de6f-4841-97e3-8f1c13e7278a" />
+  <img width="1358" height="957" alt="Bildschirmfoto vom 2026-11-15 00-06-07" src="https://github.com/user-attachments/assets/cb91e73b-1f60-45db-8f06-dd6856c7834a" />
+  <img width="1438" height="904" alt="Bildschirmfoto vom 2026-11-15 00-03-42" src="https://github.com/user-attachments/assets/1c283590-30db-411f-8997-b7dc40d53dbb" />
+  <img width="1358" height="957" alt="Bildschirmfoto vom 2026-11-15 00-06-30" src="https://github.com/user-attachments/assets/bf04bc34-af0e-4180-acad-e2b325a8e12d" />
 
 </details>
 
 # Features 
 - [x] view your local wallpapers
+- [x] Mark wallpapers as favourite and view them in the favourites tab
+- [x] preview wallpaper
+- [x] set wallpaper as the background (only for gnome)
 - [x] browse wallhaven wallpapers
 - [x] download wallhaven wallpapers
 - [x] change local wallpaper path
