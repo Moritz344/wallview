@@ -9,7 +9,7 @@
     }
   </span>
 <div class="search">
-  <button (click)="initWallpapers()" class="search-button"><img width="20" src="search.svg" class="white-img"></button>
+  <button (click)="initWallpapers()" class="search-button"><img width="23" src="search.svg" class="white-img"></button>
   <input spellcheck="false" [(ngModel)]="searchParameter().q" (keyup)="initWallpapers()" placeholder="Search...">
   @if (tab() == "browse") {
     @for (category of this.searchParameter().categories; track $index) {
