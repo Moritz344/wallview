@@ -7,9 +7,19 @@
   margin-left: 40px;
   gap: 10px;
 }
+.search-button {
+  position: absolute;
+  background-color: transparent !important;
+}
+
+.search-button img:hover{
+  filter: brightness(0) invert(0.5);
+}
 
 .search input {
   font-size: 20px;
+  padding-left: 40px;
+  width: 300px;
 }
 
 .search button {

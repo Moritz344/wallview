@@ -1,5 +1,5 @@
 <app-topbar></app-topbar>
-<span style="position: absolute;right: 20px;top: 80px;font-size: 20px">
+<span style="position: absolute;right: 40px;top: 80px;font-size: 20px">
     @if (tab() == "local") {
       {{ currentLoadedLocalWallpapers().length }}/{{ localWallpapers().length}}
     } @else if (tab() == "browse") {
@@ -9,6 +9,7 @@
     }
   </span>
 <div class="search">
+  <button (click)="initWallpapers()" class="search-button"><img width="20" src="search.svg" class="white-img"></button>
   <input spellcheck="false" [(ngModel)]="searchParameter().q" (keyup)="initWallpapers()" placeholder="Search...">
   @if (tab() == "browse") {
     @for (category of this.searchParameter().categories; track $index) {
