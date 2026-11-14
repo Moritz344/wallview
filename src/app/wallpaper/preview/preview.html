@@ -3,12 +3,12 @@
 <button (click)="prev.emit()" class="left"><img src="arrow.svg" class="left-arrow"></button>
 <div  class="screen"></div>
 <div class="container">
-  @if (isLoading() && !isDownloaded()) {
+  @if (isLoading() && !isLocal()) {
     <div class="loading-container">
       <span class="loader"></span>
     </div>
   }
-  <img (load)="onLoad()" draggable="false" class="container-img" [src]="path">
+  <img (load)="onLoad()" draggable="false" class="container-img" [class.loading]="isLoading()" [src]="path">
   @if (!isLoading()) {
   <div class="bottom-options">
     <span style="font-size: 20px;margin-top: 3px">{{ name }}</span>

@@ -23,6 +23,7 @@ export class Preview implements OnChanges {
   public isLoading = signal<boolean>(true);
   public isMarkedAsFavourite = signal<boolean>(false);
   public isDownloaded = signal<boolean>(false);
+  public isLocal = signal<boolean>(false);
 
   @HostListener("window:keydown",['$event'])
   onClose(event: KeyboardEvent) {
@@ -33,6 +34,7 @@ export class Preview implements OnChanges {
 
   ngOnChanges() {
     this.isLoading.set(true);
+    this.isLocal.set(this.path.includes("local-wallpaper"));
     this.name = this.path.split("/").at(-1) ?? ""
     this.checkIfWallpaperIsMarkedAsFavourite();
     this.checkIfWallpaperIsDownloaded();

@@ -125,3 +125,7 @@
   object-fit: contain;
   image-rendering: pixelated;
 }
+
+.container-img.loading {
+  opacity: 0;
+}
