@@ -31,6 +31,7 @@ export class Wallpaper {
 
   public showPreview = signal<boolean>(false);
   public previewPath = signal<string>("");
+  public previewThumb = signal<string>("");
 
   constructor() {
   }
@@ -62,8 +63,12 @@ export class Wallpaper {
 
   onWallpaper(wallpaper: any) {
       this.showPreview.set(true);
-      this.previewPath.set(wallpaper.path);
+      this.setPreview(wallpaper);
       console.log(wallpaper);
+  }
+
+  private setPreview(wallpaper: any) {
+    this.previewPath.set(wallpaper.path);
   }
 
   onNextWallpaperForPreview() {
@@ -71,7 +76,7 @@ export class Wallpaper {
     if (currentWallpaperPosition == this.wallpapers().length - 1) {
       return;
     }
-    this.previewPath.set(this.wallpapers()[currentWallpaperPosition + 1].path);
+    this.setPreview(this.wallpapers()[currentWallpaperPosition + 1]);
   }
 
   onPreviousWallpaperForPreview() {
@@ -79,8 +84,7 @@ export class Wallpaper {
     if (currentWallpaperPosition == 0) {
       return;
     }
-    this.previewPath.set(this.wallpapers()[currentWallpaperPosition - 1].path);
-
+    this.setPreview(this.wallpapers()[currentWallpaperPosition - 1]);
   }
 
   async onFavourite(path: string) {

@@ -3,7 +3,7 @@
 <button (click)="prev.emit()" class="left"><img src="arrow.svg" class="left-arrow"></button>
 <div  class="screen"></div>
 <div class="container">
-  @if (isLoading()) {
+  @if (isLoading() && !isDownloaded()) {
     <div class="loading-container">
       <span class="loader"></span>
     </div>
