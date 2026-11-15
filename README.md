@@ -1,4 +1,10 @@
-# Wallview
+<h1 align="left">
+  <img width="1038" height="230" alt="Frame 28 (1)" src="https://github.com/user-attachments/assets/d207d04f-7874-4f65-8709-1b11e76f51cc" />
+
+</h1>
+
+
+
 view local wallpapers and browse wallhaven wallpapers
 
 <img width="1438" height="904" alt="Bildschirmfoto vom 2026-11-15 00-03-31" src="https://github.com/user-attachments/assets/ad2eae0c-ac77-41b5-b241-38f5e2ed8bb5" />
