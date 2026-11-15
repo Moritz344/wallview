@@ -2,6 +2,7 @@ const { app,dialog, BrowserWindow,net, ipcMain, protocol, shell } = require("ele
 const path = require("path");
 const fs = require("fs");
 const os = require("os");
+const { execSync } = require("child_process");
 
 const wallhavenBaseUrl = "https://wallhaven.cc/api/v1";
 let aboutWindow;
@@ -56,6 +57,32 @@ ipcMain.handle("update-favourite-wallpaper",async(_,wallpaper) => {
   } else {
     store.set("favourites",favouriteWallpapers.filter(x => x.path != wallpaper.path))
   }
+});
+
+const isGnome = () => {
+  if (process.platform !== "linux") return false;
+
+  const candidates = [
+    process.env.XDG_CURRENT_DESKTOP,
+    process.env.XDG_SESSION_DESKTOP,
+    process.env.DESKTOP_SESSION,
+  ];
+
+  return candidates.some(v => v && v.toLowerCase().includes("gnome"));
+};
+
+ipcMain.handle("is-gnome",async() => {
+  return isGnome();
+})
+
+ipcMain.handle("apply-wallpaper", async (_, imagePath) => {
+  if (!isGnome()) {
+    console.log("Not on gnome. Cannot set wallpaper")
+    return;
+  }
+  const uri = "file://" + imagePath;
+  execSync(`gsettings set org.gnome.desktop.background picture-uri '${uri}'`);
+  execSync(`gsettings set org.gnome.desktop.background picture-uri-dark '${uri}'`);
 });
 
 ipcMain.handle("search-wallhaven",async(_,params) => {

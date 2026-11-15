@@ -18,6 +18,14 @@ export class Electron {
     return await (window as any).electronAPI.searchWallhaven(searchParameter);
   }
 
+  async applyWallpaper(path: string) {
+    return await (window as any).electronAPI.applyWallpaper(path);
+  }
+
+  async isOnGnome() {
+    return await (window as any).electronAPI.isOnGnome();
+  }
+
   async getLocalWallpaperPath() {
     return await (window as any).electronAPI.getLocalWallpaperPath();
   }

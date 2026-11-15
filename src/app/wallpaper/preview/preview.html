@@ -22,9 +22,12 @@
       </button>
       @if (isDownloaded()) {
         <button (click)="onOpenPath()" title="Open wallpaper in folder"><img width="20" src="open.svg" class="white-img"></button>
+        <button [class.disabled]="isGnome() == false" (click)="onApplyWallpaper()" title="Apply wallpaper"><img  src="display.svg" class="white-img"></button>
       }@else {
         <button (click)="onDownload()" title="Download wallpaper"><img  src="download.svg" class="white-img"></button>
       }
+
+
     </div>
   </div>
   }

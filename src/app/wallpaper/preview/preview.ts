@@ -24,6 +24,7 @@ export class Preview implements OnChanges {
   public isMarkedAsFavourite = signal<boolean>(false);
   public isDownloaded = signal<boolean>(false);
   public isLocal = signal<boolean>(false);
+  public isGnome = signal<boolean>(false);
 
   @HostListener("window:keydown",['$event'])
   onClose(event: KeyboardEvent) {
@@ -38,6 +39,13 @@ export class Preview implements OnChanges {
     this.name = this.path.split("/").at(-1) ?? ""
     this.checkIfWallpaperIsMarkedAsFavourite();
     this.checkIfWallpaperIsDownloaded();
+    this.checkIfUserIsRunningGnome();
+  }
+
+  async checkIfUserIsRunningGnome() {
+    const isGnome = await this.electron.isOnGnome();
+    console.log(isGnome);
+    this.isGnome.set(isGnome);
   }
 
   async checkIfWallpaperIsDownloaded() {
@@ -50,6 +58,13 @@ export class Preview implements OnChanges {
     }
     this.isDownloaded.set(isLocalWallpaper)
 
+  }
+
+  async onApplyWallpaper() {
+    const path = this.path.split("local-wallpaper://")[1]
+    if (path) {
+      this.electron.applyWallpaper(path)
+    }
   }
 
   async onOpenPath() {
