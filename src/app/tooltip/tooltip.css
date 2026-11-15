@@ -1,0 +1,18 @@
+.screen {
+  position: absolute;
+  width: 100vw;
+  height: 100vw;
+  z-index: 2000;
+}
+
+.container {
+}
+
+span {
+  position: fixed;
+  pointer-events: none;
+  background-color: var(--bg-elevated);
+  padding: 8px;
+  font-size: 15px;
+  border-radius: 5px;
+}

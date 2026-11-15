@@ -1,0 +1,7 @@
+<div class="container">
+  <span
+    animate.enter="enter-animation"
+    [style.left.px]="tooltip.position()[0]"
+    [style.top.px]="tooltip.position()[1]">{{ tooltip.text() }}
+  </span>
+</div>
