@@ -1,7 +1,7 @@
 <button class="close" (click)="close.emit()"><img src="close.svg" class="white-img"></button>
 <button (click)="next.emit()" class="right"><img src="arrow.svg" class="white-img"></button>
 <button (click)="prev.emit()" class="left"><img src="arrow.svg" class="left-arrow"></button>
-<div  class="screen"></div>
+<div class="screen"></div>
 <div class="container">
   @if (isLoading() && !isLocal()) {
     <div class="loading-container">
@@ -13,7 +13,10 @@
   <div class="bottom-options">
     <span style="font-size: 20px;margin-top: 3px">{{ name }}</span>
     <div class="bottom-options-right">
-      <button (click)="onFavourite()" title="Mark as favourite">
+      <button
+        (mouseenter)="tooltip.showTooltip('Mark wallpaper as favourite',$event)"
+        (mouseleave)="tooltip.hideTooltip()"
+        (click)="onFavourite()" >
         @if (isMarkedAsFavourite()) {
           <img src="fav.svg" class="white-img">
         }@else {
@@ -21,10 +24,21 @@
         }
       </button>
       @if (isDownloaded()) {
-        <button (click)="onOpenPath()" title="Open wallpaper in folder"><img width="20" src="open.svg" class="white-img"></button>
-        <button [class.disabled]="isGnome() == false" (click)="onApplyWallpaper()" title="Apply wallpaper"><img  src="display.svg" class="white-img"></button>
+        <button
+        (mouseenter)="tooltip.showTooltip('Open wallpaper in folder',$event)"
+        (mouseleave)="tooltip.hideTooltip()"
+        (click)="onOpenPath()">
+        <img width="20" src="open.svg" class="white-img"></button>
+        <button
+        (mouseenter)="tooltip.showTooltip('Apply Wallpaper',$event)"
+        (mouseleave)="tooltip.hideTooltip()"
+        [class.disabled]="isGnome() == false"
+        (click)="onApplyWallpaper()">
+        <img  src="display.svg" class="white-img"></button>
       }@else {
-        <button (click)="onDownload()" title="Download wallpaper"><img  src="download.svg" class="white-img"></button>
+        <button
+        (click)="onDownload()"
+        ><img  src="download.svg" class="white-img"></button>
       }
 
 
@@ -32,4 +46,8 @@
   </div>
   }
 </div>
+
+@if (tooltip.show()) {
+  <app-tooltip></app-tooltip>
+}
 

@@ -1,10 +1,12 @@
 import { Component,HostListener,signal,Input,inject,Output,OnChanges, EventEmitter } from '@angular/core';
 import { Settings } from '../../settings';
 import { Electron } from '../../electron';
+import { Tooltip } from '../../tooltip/tooltip';
+import { TooltipService } from '../../tooltip-service';
 
 @Component({
   selector: 'app-preview',
-  imports: [],
+  imports: [Tooltip],
   templateUrl: './preview.html',
   styleUrl: './preview.css',
 })
@@ -18,6 +20,7 @@ export class Preview implements OnChanges {
 
   public settings = inject(Settings);
   public electron = inject(Electron);
+  public tooltip = inject(TooltipService);
 
   public name = ""
   public isLoading = signal<boolean>(true);
@@ -25,6 +28,13 @@ export class Preview implements OnChanges {
   public isDownloaded = signal<boolean>(false);
   public isLocal = signal<boolean>(false);
   public isGnome = signal<boolean>(false);
+
+  public showTooltip = signal<boolean>(false);
+  public tooltipText = signal<string>("");
+  public tooltipPosition = signal<number[]>([0,0]);
+  public tooltipDelay = signal<number>(500);
+  public tooltipDelayLeave = signal<number>(250);
+  private tooltipTimeout?: ReturnType<typeof setTimeout>;
 
   @HostListener("window:keydown",['$event'])
   onClose(event: KeyboardEvent) {
@@ -42,9 +52,10 @@ export class Preview implements OnChanges {
     this.checkIfUserIsRunningGnome();
   }
 
+
+
   async checkIfUserIsRunningGnome() {
     const isGnome = await this.electron.isOnGnome();
-    console.log(isGnome);
     this.isGnome.set(isGnome);
   }
 
