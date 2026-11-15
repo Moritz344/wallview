@@ -41,8 +41,8 @@ modules:
       - cp -r dist/ /app/wallview/dist/
       - cp -r node_modules/ /app/wallview/node_modules/
       - cp main.js preload.js package.json /app/wallview/
-      - mkdir -p /app/share/icons/hicolor/scalable/apps
-      - cp public/wallpaper.svg /app/share/icons/hicolor/scalable/apps/io.github.Moritz344.wallview.svg
+      - mkdir -p /app/share/icons/hicolor/256x256/apps
+      - cp public/wallview-icon.png /app/share/icons/hicolor/256x256/apps/io.github.Moritz344.wallview.png
       - cp io.github.Moritz344.wallview.desktop /app/share/applications/
       - cp io.github.Moritz344.wallview.metainfo.xml /app/share/metainfo/
       - install -Dm755 wallview.sh /app/bin/wallview
