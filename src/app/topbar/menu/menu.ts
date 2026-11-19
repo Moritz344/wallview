@@ -33,7 +33,8 @@ export class Menu {
   }
 
   onAbout() {
-    this.electron.openAbout();
+    this.close.emit();
+    this.settings.showAboutDialog.set(true);
   }
 
   onExit() {
