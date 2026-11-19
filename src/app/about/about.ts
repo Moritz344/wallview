@@ -1,5 +1,13 @@
-import { Component,inject,signal } from '@angular/core';
-import { Electron } from '../electron'
+import { Component, inject, OnInit, output, signal } from '@angular/core';
+import { Electron } from '../electron';
+import { Settings } from '../settings';
+
+export interface AboutData {
+  name: string;
+  version: string;
+  description: string;
+  author?: string;
+}
 
 @Component({
   selector: 'app-about',
@@ -7,25 +15,28 @@ import { Electron } from '../electron'
   templateUrl: './about.html',
   styleUrl: './about.css',
 })
-export class About {
-  private electron = inject(Electron);
+export class About implements OnInit {
+  public electron = inject(Electron);
+  public settings = inject(Settings);
 
-  public data = signal<any>({});
+  aboutData = signal<any>([]);
+  close = output<void>();
 
   constructor() {
     this.initData();
   }
 
-  openGithub() {
-    this.electron.openExternalLink("https://github.com/Moritz344/wallview");
-  }
-
-  onClose() {
-    this.electron.closeWindow("about");
+  ngOnInit(): void {
   }
 
   async initData() {
-    this.data.set(await this.electron.getAboutData());
+    const data: any = await this.electron.getAboutData();
+    this.aboutData.set(data);
   }
 
+  onClose() {
+    this.settings.showAboutDialog.set(false);
+    this.close.emit();
+  }
 }
+

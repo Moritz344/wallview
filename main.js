@@ -5,7 +5,6 @@ const os = require("os");
 const { execSync } = require("child_process");
 
 const wallhavenBaseUrl = "https://wallhaven.cc/api/v1";
-let aboutWindow;
 let win;
 let store;
 
@@ -112,14 +111,6 @@ ipcMain.handle("search-wallhaven",async(_,params) => {
   }
 });
 
-ipcMain.handle("close-electron-window",async(_,name) => {
-  if (name == "about") {
-    aboutWindow.close();
-    aboutWindow = null;
-  }
-
-})
-
 ipcMain.handle("get-about-data",async () => {
   try {
     const pkg = JSON.parse(fs.readFileSync(path.join(__dirname,"package.json")));
@@ -135,24 +126,6 @@ ipcMain.handle("get-about-data",async () => {
     }
 })
 
-ipcMain.handle("open-about",async () => {
-   if (aboutWindow) { return; }
-   aboutWindow = new BrowserWindow({
-      maxWidth: 400,
-      maxHeight: 200,
-      frame: false,
-      parent: win,
-      modal: true,
-      webPreferences: {
-        contextIsolation: true,
-        enableRemoteModule: false,
-        preload: path.join(__dirname, "preload.js"),
-      },
-    });
-
-    //aboutWindow.openDevTools();
-    loadAngularRoute(aboutWindow, "about");
-});
 
 ipcMain.handle("open-external", async (_, url) => {
   await shell.openExternal(url);

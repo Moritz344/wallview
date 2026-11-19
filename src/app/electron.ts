@@ -38,10 +38,6 @@ export class Electron {
     return await (window as any).electronAPI.openLocalWallpaperPath();
   }
 
-  async openAbout() {
-    return await (window as any).electronAPI.openAboutWindow();
-  }
-
   async getAboutData() {
     return await (window as any).electronAPI.getAboutData();
   }

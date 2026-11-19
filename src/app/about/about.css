@@ -1,67 +1,74 @@
 .screen {
-  background-color: #222226;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  z-index: 1000;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.4;
 }
+
 
 .container {
-  display: flex;
-  justify-content: center;
-  margin-top: 60px;
-  text-align: center;
-}
-
-.about {
-  display: flex;
-  flex-direction: column;
-}
-
-h1{
-  font-size: 30px;
-}
-
-a {
-  color: #75BBE5;
-}
-
-.topbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  -webkit-app-region: drag;
-}
-
-.exit {
-  position: relative;
-  margin: 10px;
-  float: right;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  z-index: 1003;
+  width: 400px;
+  background-color: var(--bg-card);
+  height: 200px;
   border-radius: 10px;
+}
+
+.container-content {
+}
+
+.container-content h1{
   display: flex;
   justify-content: center;
-  -webkit-app-region: no-drag;
+  font-size: 30px;
+  margin-top: 40px;
+  margin-bottom: 0px;
 }
 
-.exit:hover {
-  background-color: var(--button-color);
+.container-content p{
+  display: flex;
+  justify-content: center;
+  font-size: 17px;
+  margin-top: 0;
 }
 
-a:hover{
-  color: #81D0FF;
-  cursor: pointer;
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
-h1,h2,p{
-  margin: 0;
+.close button {
+  display: flex;
+  justify-content: center;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  padding: 0;
 }
 
-img {
+.close img {
   filter: brightness(0) invert(1);
+  width: 20px;
+  height: 30px;
 }
 
-button {
-  background: transparent;
+.options-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
 }
+
+.options-container button {
+  padding: 10px;
+  margin: 5px;
+  width: 98%;
+}
+
