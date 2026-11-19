@@ -10,6 +10,7 @@ export type Tab = "local" | "browse" | "fav";
 export class Settings {
   public router = inject(Router);
   public selectedTab = signal<Tab>("local");
+  public showAboutDialog = signal<boolean>(false);
   public localWallpaperPath = signal<string>("");
   public wallhavenSearchError = signal<boolean>(false);
   public searchParameter = signal<SearchParameter>({
