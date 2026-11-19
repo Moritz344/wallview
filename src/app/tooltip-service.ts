@@ -14,7 +14,6 @@ export class TooltipService {
 
   showTooltip(text: string,event: MouseEvent) {
     clearTimeout(this.timeout);
-    console.log(event);
     this.timeout = setTimeout(() => {
       this.show.set(true);
       this.position.set([event.x + event.offsetX,event.y + event.offsetY])

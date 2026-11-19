@@ -64,7 +64,6 @@ export class Wallpaper {
   onWallpaper(wallpaper: any) {
       this.showPreview.set(true);
       this.setPreview(wallpaper);
-      console.log(wallpaper);
   }
 
   private setPreview(wallpaper: any) {
