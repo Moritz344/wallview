@@ -101,7 +101,8 @@ ipcMain.handle("search-wallhaven",async(_,params) => {
     urlParams.append("page",params.page);
 
     const response = await fetch(wallhavenBaseUrl + "/search?" + urlParams.toString())
-    if (!response) {
+    if (!response.ok) {
+      console.log(`wallhaven ${response.status} ${response.statusText}`)
       return;
     }
 
