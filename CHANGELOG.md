@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/Moritz344/wallview/compare/v0.0.4...v0.0.5) (2026-11-19)
+
+
+### Features
+
+* add fav tab ([a0e2101](https://github.com/Moritz344/wallview/commit/a0e21013ecddd2f3ff0a8b735bce5ed2ae2e2a1a))
+* add quit button ([403336b](https://github.com/Moritz344/wallview/commit/403336b4148ce9e35234adae729ea04be8508f26))
+* apply wallpaper option ([b58c82c](https://github.com/Moritz344/wallview/commit/b58c82c396e8fe23d4f8738d535a1bd1bf81dfb4))
+* create own tooltip component ([aa000d6](https://github.com/Moritz344/wallview/commit/aa000d65b33c49fa6a990289bc027e3c0ff4c504))
+* create preview component for wallpapers ([ae528d0](https://github.com/Moritz344/wallview/commit/ae528d053f5ea2ed4f71060718ed8a5124869f0c))
+* implement search for favourite tab ([4848285](https://github.com/Moritz344/wallview/commit/4848285450ed42fa6a07338eababf8d56a3149be))
+* remove electron window for about ([dcd4da8](https://github.com/Moritz344/wallview/commit/dcd4da806b30a0b59fcc6104368e537f7f4489b1))
+* show different icon depending on if the wallpaper is marked as favourite,update favourite status,change hover title ([cc3c3f9](https://github.com/Moritz344/wallview/commit/cc3c3f92a57b81d1621243dd4a3d2617f7a48331))
+* show different placeholder depending on the selectedTab ([25eae11](https://github.com/Moritz344/wallview/commit/25eae11919d7f014fa3716836d9290490a65b739))
+* show preview of wallpaper when clicking on one,switch to the next and previous,download wallpaper,show in folder and mark as favourite ([f7e3702](https://github.com/Moritz344/wallview/commit/f7e3702764eb2a051bc1da6d7313daeb8966e68c))
+
+
+### Bug Fixes
+
+* current loaded wallpapers and max not showing ([f4a8786](https://github.com/Moritz344/wallview/commit/f4a878627002499237339d2c8d02449866d97bb2))
+* disable button for opening the local wallpaper folder if path was not set ([56526a2](https://github.com/Moritz344/wallview/commit/56526a23dd7c0d45ab3bb1054c0c783c2ffb69d9))
+* dont show loading indicator for local wallpaper ([bf5f858](https://github.com/Moritz344/wallview/commit/bf5f858c6f1bb614758de16524dab7cdfbb2cecb))
+* open repo instead of github profile ([94c7134](https://github.com/Moritz344/wallview/commit/94c7134195c70798bebf68b4afd8fab6345a0126))
+* pagination data not being at bottom,disable prev and next button on certain condition ([3bbc8ed](https://github.com/Moritz344/wallview/commit/3bbc8ed5e66471330892fbb970e4f95fa52048a4))
+* search when typing in input field ([35f8dfb](https://github.com/Moritz344/wallview/commit/35f8dfb751b762896c34091f828fa7a753b185db))
+* searchparameter q not being resetted when changing between tabs ([e4ab2da](https://github.com/Moritz344/wallview/commit/e4ab2da9b319b8dba7c3b05344755f7553de46b3))
+* TypeError => only update the path when  wallpaper is actually in favourites ([fb1df8d](https://github.com/Moritz344/wallview/commit/fb1df8da1c25ffe581546a79807b286bbea87630))
+
 ### [0.0.4](https://github.com/Moritz344/wallpaper-selector/compare/v0.0.3...v0.0.4) (2026-07-24)
 
 
