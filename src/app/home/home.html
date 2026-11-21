@@ -62,7 +62,7 @@
   }@else if (tab() == "fav") {
     @if (!isLoading()) {
       <app-wallpaper
-      [wallpapers]="favouriteWallpapers"
+      [wallpapers]="currentLoadedFavouriteWallpapers"
       (load)="settings.loadFavouriteWallpapers()"
       [showInFolderOption]="true"
       [wallpapersTotal]="favouriteWallpapers().length"
