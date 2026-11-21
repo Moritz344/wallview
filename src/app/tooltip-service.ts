@@ -7,7 +7,7 @@ export class TooltipService {
   public show = signal<boolean>(false);
   public text = signal<string>("");
   public position = signal<number[]>([0,0]);
-  public delay = signal<number>(500);
+  public delay = signal<number>(800);
   public delayLeave = signal<number>(250);
   public timeout?: ReturnType<typeof setTimeout>;
 
