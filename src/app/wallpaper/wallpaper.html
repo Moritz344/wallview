@@ -68,9 +68,15 @@
             <span>Try searching for something different</span>
           }
         }@else if (settings.selectedTab() == "fav") {
-          <img src="search.svg" class="white-img" width="70">
-          <h1>No results</h1>
-          <span>Try searching for something different</span>
+          @if (settings.searchParameter().q.length > 0) {
+            <img src="search.svg" class="white-img" width="70">
+            <h1>No results</h1>
+            <span>Try searching for something different</span>
+          }@else {
+            <img src="not_fav.svg" class="white-img" width="70">
+            <h1>No Favourite Wallpapers found</h1>
+            <span style="text-align: center">Add a wallpaper to your favourites by clicking on the star button in the preview</span>
+          }
         }
     </div>
   }
