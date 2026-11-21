@@ -29,13 +29,6 @@ export class Preview implements OnChanges {
   public isLocal = signal<boolean>(false);
   public isGnome = signal<boolean>(false);
 
-  public showTooltip = signal<boolean>(false);
-  public tooltipText = signal<string>("");
-  public tooltipPosition = signal<number[]>([0,0]);
-  public tooltipDelay = signal<number>(500);
-  public tooltipDelayLeave = signal<number>(250);
-  private tooltipTimeout?: ReturnType<typeof setTimeout>;
-
   @HostListener("window:keydown",['$event'])
   onClose(event: KeyboardEvent) {
     if (event.key == "Escape") {
@@ -72,6 +65,7 @@ export class Preview implements OnChanges {
   }
 
   async onApplyWallpaper() {
+    this.tooltip.hideTooltip();
     const path = this.path.split("local-wallpaper://")[1]
     if (path) {
       this.electron.applyWallpaper(path)
@@ -79,6 +73,7 @@ export class Preview implements OnChanges {
   }
 
   async onOpenPath() {
+    this.tooltip.hideTooltip();
     if (this.path.includes("local-wallpaper")) {
       this.electron.openWallpaperInFolder(this.path)
     } else {
@@ -101,8 +96,13 @@ export class Preview implements OnChanges {
   }
 
   onFavourite() {
+    this.tooltip.hideTooltip();
     this.isMarkedAsFavourite.update(fav => !fav);
     this.favourite.emit(this.path);
+    if (this.settings.selectedTab() == "fav") {
+      this.close.emit();
+      this.settings.loadFavouriteWallpapers();
+    }
   }
 
   onLoad() {
