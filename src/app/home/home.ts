@@ -27,12 +27,12 @@ export class Home implements OnInit {
   public currentLoadedLocalWallpapers = signal<WallpaperFile[]>([]);
 
   public favouriteWallpapers = this.settings.favouriteWallpapers;
-  public currentLoadedFavouriteWallpapers = signal<{path: string,name: string}[]>([]);
+  public currentLoadedFavouriteWallpapers = this.settings.currentLoadedFavouriteWallpapers;
 
   public wallhavenWallpapers = signal<string[]>([]);
   public currentLoadedWallhavenWallpapers = signal<string[]>([]);
 
-  public isLoading = signal<boolean>(false);
+  public isLoading = this.settings.isLoading;
   public searchParameter = this.settings.searchParameter;
 
   public totalWallhavenPages = signal<number>(0);
@@ -55,7 +55,7 @@ export class Home implements OnInit {
     } else if (this.tab() == "browse") {
       this.searchWallhavenWallpapers();
     } else if (this.tab() == "fav") {
-      this.searchFavouriteWallpapers();
+      this.settings.searchFavouriteWallpapers();
     }
   }
 
@@ -116,15 +116,6 @@ export class Home implements OnInit {
     this.isLoading.set(false);
   }
 
-  async searchFavouriteWallpapers() {
-    this.isLoading.set(true);
-    let wallpapers = await this.electron.getFavouriteWallpapers();
-    const filteredWallpapers = wallpapers
-      .filter((wallpaper: { name: string,path: string}) => wallpaper.name.includes(this.searchParameter().q));
-    this.favouriteWallpapers.set(filteredWallpapers)
-    this.currentLoadedFavouriteWallpapers.set(this.favouriteWallpapers().slice(0,this.loadQuantity()))
-    this.isLoading.set(false);
-  }
 
   async searchWallhavenWallpapers() {
     this.isLoading.set(true);
