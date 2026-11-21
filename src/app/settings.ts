@@ -45,8 +45,20 @@ export class Settings {
 
   public favouriteWallpapers = signal<{path: string,name: string}[]>([]);
   public readonly loadQuantity = signal<number>(24);
+  public currentLoadedFavouriteWallpapers = signal<{path: string,name: string}[]>([]);
+  public isLoading = signal<boolean>(false);
 
   constructor() {}
+
+  async searchFavouriteWallpapers() {
+    this.isLoading.set(true);
+    let wallpapers = await this.electron.getFavouriteWallpapers();
+    const filteredWallpapers = wallpapers
+      .filter((wallpaper: { name: string,path: string}) => wallpaper.name.includes(this.searchParameter().q));
+    this.favouriteWallpapers.set(filteredWallpapers)
+    this.currentLoadedFavouriteWallpapers.set(this.favouriteWallpapers().slice(0,this.loadQuantity()))
+    this.isLoading.set(false);
+  }
 
   async loadFavouriteWallpapers() {
     const start = 0;
@@ -55,7 +67,7 @@ export class Settings {
     let wallpapers = await this.electron.getFavouriteWallpapers();
     wallpapers = wallpapers.slice(start,end);
 
-    this.favouriteWallpapers.set(wallpapers);
+    this.currentLoadedFavouriteWallpapers.set(wallpapers);
   }
 
 
