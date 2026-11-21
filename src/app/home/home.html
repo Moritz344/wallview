@@ -63,7 +63,7 @@
     @if (!isLoading()) {
       <app-wallpaper
       [wallpapers]="favouriteWallpapers"
-      (load)="loadFavouriteWallpapers()"
+      (load)="settings.loadFavouriteWallpapers()"
       [showInFolderOption]="true"
       [wallpapersTotal]="favouriteWallpapers().length"
       type="local"

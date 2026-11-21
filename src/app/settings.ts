@@ -1,6 +1,7 @@
 import { Injectable,signal,inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchParameter } from './home/home.types';
+import { Electron } from './electron';
 
 export type Tab = "local" | "browse" | "fav";
 
@@ -9,6 +10,8 @@ export type Tab = "local" | "browse" | "fav";
 })
 export class Settings {
   public router = inject(Router);
+  public electron = inject(Electron);
+
   public selectedTab = signal<Tab>("local");
   public showAboutDialog = signal<boolean>(false);
   public localWallpaperPath = signal<string>("");
@@ -40,5 +43,20 @@ export class Settings {
     page: 1
   });
 
+  public favouriteWallpapers = signal<{path: string,name: string}[]>([]);
+  public readonly loadQuantity = signal<number>(24);
+
   constructor() {}
+
+  async loadFavouriteWallpapers() {
+    const start = 0;
+    let end = this.favouriteWallpapers().length + this.loadQuantity();
+
+    let wallpapers = await this.electron.getFavouriteWallpapers();
+    wallpapers = wallpapers.slice(start,end);
+
+    this.favouriteWallpapers.set(wallpapers);
+  }
+
+
 }

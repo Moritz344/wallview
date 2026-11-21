@@ -8,9 +8,6 @@ import { Wallhaven } from '../wallhaven';
 import { SearchParameter, WallpaperFile } from './home.types';
 import { Dropdown } from './dropdown/dropdown';
 
-// TODO: contextmenu on wallpapers
-// TODO: Downloads Tab
-
 @Component({
   selector: 'app-home',
   imports: [Topbar,Wallpaper,FormsModule,Dropdown],
@@ -24,12 +21,12 @@ export class Home implements OnInit {
 
   public tab = this.settings.selectedTab;
 
-  public readonly loadQuantity = signal<number>(24);
+  public readonly loadQuantity = this.settings.loadQuantity;
 
   public localWallpapers = signal<WallpaperFile[]>([]);
   public currentLoadedLocalWallpapers = signal<WallpaperFile[]>([]);
 
-  public favouriteWallpapers = signal<{path: string,name: string}[]>([]);
+  public favouriteWallpapers = this.settings.favouriteWallpapers;
   public currentLoadedFavouriteWallpapers = signal<{path: string,name: string}[]>([]);
 
   public wallhavenWallpapers = signal<string[]>([]);
@@ -62,15 +59,6 @@ export class Home implements OnInit {
     }
   }
 
-  async loadFavouriteWallpapers() {
-    const start = 0;
-    let end = this.favouriteWallpapers().length + this.loadQuantity();
-
-    let wallpapers = await this.electron.getFavouriteWallpapers();
-    wallpapers = wallpapers.slice(start,end);
-
-    this.favouriteWallpapers.set(wallpapers);
-  }
 
   loadLocalWallpapers() {
     const start = 0;
