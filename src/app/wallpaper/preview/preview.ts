@@ -101,7 +101,7 @@ export class Preview implements OnChanges {
     this.favourite.emit(this.path);
     if (this.settings.selectedTab() == "fav") {
       this.close.emit();
-      this.settings.searchFavouriteWallpapers();
+      this.settings.searchWallpapers();
     }
   }
 
