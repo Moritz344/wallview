@@ -1,16 +1,18 @@
 <app-topbar></app-topbar>
 <span style="position: absolute;right: 40px;top: 80px;font-size: 20px">
-    @if (tab() == "local") {
+    @if (tab() == "local" && settings.localWallpaperPath().length > 0) {
       {{ currentLoadedLocalWallpapers().length }}/{{ localWallpapers().length}}
     } @else if (tab() == "browse") {
       {{ currentLoadedWallhavenWallpapers().length }}/{{ wallhavenWallpapers().length }}
-    }@else if (tab() == "fav"){
+    }@else if (tab() == "fav" ){
       {{ currentLoadedFavouriteWallpapers().length }}/{{ favouriteWallpapers().length }}
     }
   </span>
 <div class="search">
-  <button (click)="initWallpapers()" class="search-button"><img width="23" src="search.svg" class="white-img"></button>
-  <input spellcheck="false" [(ngModel)]="searchParameter().q" (keyup)="initWallpapers()" placeholder="Search...">
+  @if (tab() !== "local" || settings.localWallpaperPath() !== "") {
+    <button (click)="initWallpapers()" class="search-button"><img width="23" src="search.svg" class="white-img"></button>
+    <input spellcheck="false" [(ngModel)]="searchParameter().q" (keyup)="initWallpapers()" placeholder="Search...">
+  }
   @if (tab() == "browse") {
     @for (category of this.searchParameter().categories; track $index) {
       <button (click)="onChangeCategory(category.name)" [class.selected]="category.isChecked">{{ category.name }}</button>
@@ -34,6 +36,12 @@
       (search)="this.searchWallhavenWallpapers()"
       [data]="wallhaven.resolutions()">
     </app-dropdown>
+  } @else if (tab() == "local" && settings.localWallpaperPath() != "" || tab() == "fav") {
+    <app-dropdown
+    [data]="settings.localOrder()"
+    (search)="initWallpapers()"
+    [(selectedValue)]="searchParameter().localOrder"
+    ></app-dropdown>
   }
 </div>
 
