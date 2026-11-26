@@ -51,7 +51,7 @@ export class Home implements OnInit {
 
   async initWallpaperPath() {
     const path = await this.electron.getLocalWallpaperPath()
-    this.settings.localWallpaperPath.set(path);
+    this.settings.localWallpaperPath.set(path ?? "");
   }
 
   ngOnInit() {
