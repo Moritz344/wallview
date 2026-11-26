@@ -5,7 +5,7 @@ import { Settings } from '../settings';
 import { Wallpaper } from '../wallpaper/wallpaper';
 import { Electron } from '../electron';
 import { Wallhaven } from '../wallhaven';
-import { SearchParameter, WallpaperFile } from './home.types';
+import { WallpaperFile } from './home.types';
 import { Dropdown } from './dropdown/dropdown';
 
 @Component({
@@ -23,8 +23,8 @@ export class Home implements OnInit {
 
   public readonly loadQuantity = this.settings.loadQuantity;
 
-  public localWallpapers = signal<WallpaperFile[]>([]);
-  public currentLoadedLocalWallpapers = signal<WallpaperFile[]>([]);
+  public localWallpapers = this.settings.localWallpapers;
+  public currentLoadedLocalWallpapers = this.settings.currentLoadedLocalWallpapers;
 
   public favouriteWallpapers = this.settings.favouriteWallpapers;
   public currentLoadedFavouriteWallpapers = this.settings.currentLoadedFavouriteWallpapers;
@@ -37,6 +37,7 @@ export class Home implements OnInit {
 
   public totalWallhavenPages = signal<number>(0);
 
+
   constructor() {
       effect(() => {
         this.settings.localWallpaperPath();
@@ -44,18 +45,23 @@ export class Home implements OnInit {
         this.initWallpapers();
     });
 
+
+    this.initWallpaperPath();
+  }
+
+  async initWallpaperPath() {
+    const path = await this.electron.getLocalWallpaperPath()
+    this.settings.localWallpaperPath.set(path);
   }
 
   ngOnInit() {
   }
 
   initWallpapers() {
-    if (this.tab() == "local") {
-      this.searchLocalWallpapers();
+    if (this.tab() == "local" || this.tab() == "fav") {
+      this.settings.searchWallpapers()
     } else if (this.tab() == "browse") {
       this.searchWallhavenWallpapers();
-    } else if (this.tab() == "fav") {
-      this.settings.searchFavouriteWallpapers();
     }
   }
 
@@ -100,34 +106,19 @@ export class Home implements OnInit {
 
 
 
-  async searchLocalWallpapers() {
-    const path = await this.electron.getLocalWallpaperPath()
-    if (!path) {
-      return;
-    }
-    this.settings.localWallpaperPath.set(path);
-
-    this.isLoading.set(true);
-    const wallpapers = await this.electron.getLocalWallpapers();
-    const filteredWallpapers = wallpapers
-      .filter((wallpaper: { name: string,path: string}) => wallpaper.name.includes(this.searchParameter().q));
-    this.localWallpapers.set(filteredWallpapers);
-    this.currentLoadedLocalWallpapers.set(this.localWallpapers().slice(0,this.loadQuantity()));
-    this.isLoading.set(false);
-  }
-
 
   async searchWallhavenWallpapers() {
     this.isLoading.set(true);
     const response = await this.electron.getWallhavenWallpapers(this.searchParameter());
     if (response == undefined) {
-      this.settings.wallhavenSearchError.set(true);
+      this.wallhaven.wallhavenSearchError.set(true);
       this.isLoading.set(false);
       return;
     }
     this.wallhavenWallpapers.set(response.data);
     this.currentLoadedWallhavenWallpapers.set(this.wallhavenWallpapers().slice(0,this.loadQuantity()));
     this.isLoading.set(false);
+    this.wallhaven.wallhavenSearchError.set(false);
     this.totalWallhavenPages.set(response.meta.total);
   }
 
