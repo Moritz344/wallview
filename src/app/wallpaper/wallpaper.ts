@@ -4,6 +4,7 @@ import { DownloadPopup } from './download-popup/download-popup';
 import { Download } from './download-popup/download';
 import { Settings } from '../settings'
 import { Preview } from './preview/preview';
+import { Wallhaven } from '../wallhaven';
 
 @Component({
   selector: 'app-wallpaper',
@@ -24,6 +25,7 @@ export class Wallpaper {
   @Input() pageData: { page: number,total: number} = {page:0,total: 0};
 
   public electron = inject(Electron);
+  public wallhaven = inject(Wallhaven);
   public downloadService = inject(Download);
   public settings = inject(Settings);
 
