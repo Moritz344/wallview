@@ -4,6 +4,7 @@ export interface SearchParameter {
   category: string,
   purity: string,
   sorting: string,
+  localOrder: string,
   order: string,
   topRange: string,
   atleast: string,
