@@ -1,6 +1,7 @@
 import { Injectable,signal,inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchParameter } from './home/home.types';
+import { WallpaperFile } from './home/home.types';
 import { Electron } from './electron';
 
 export type Tab = "local" | "browse" | "fav";
@@ -15,7 +16,7 @@ export class Settings {
   public selectedTab = signal<Tab>("local");
   public showAboutDialog = signal<boolean>(false);
   public localWallpaperPath = signal<string>("");
-  public wallhavenSearchError = signal<boolean>(false);
+  public readonly localOrder = signal<string[]>(["Newest","Oldest"])
   public searchParameter = signal<SearchParameter>({
     q: "",
     categories: [
@@ -27,6 +28,7 @@ export class Settings {
     purity: "100",
     sorting: "views",
     order: "desc",
+    localOrder: "Newest",
     topRange: "1M",
     atleast: "1920x1080",
     resolution: [
@@ -44,21 +46,53 @@ export class Settings {
   });
 
   public favouriteWallpapers = signal<{path: string,name: string}[]>([]);
-  public readonly loadQuantity = signal<number>(24);
   public currentLoadedFavouriteWallpapers = signal<{path: string,name: string}[]>([]);
+
+  public localWallpapers = signal<WallpaperFile[]>([]);
+  public currentLoadedLocalWallpapers = signal<WallpaperFile[]>([]);
+
   public isLoading = signal<boolean>(false);
+  public readonly loadQuantity = signal<number>(24);
 
   constructor() {}
 
-  async searchFavouriteWallpapers() {
-    this.isLoading.set(true);
-    let wallpapers = await this.electron.getFavouriteWallpapers();
-    const filteredWallpapers = wallpapers
-      .filter((wallpaper: { name: string,path: string}) => wallpaper.name.includes(this.searchParameter().q));
-    this.favouriteWallpapers.set(filteredWallpapers)
-    this.currentLoadedFavouriteWallpapers.set(this.favouriteWallpapers().slice(0,this.loadQuantity()))
-    this.isLoading.set(false);
+  private filterWallpaperOrder(filtered: any) {
+    if (this.searchParameter().localOrder == "Newest") {
+      filtered = filtered.sort((a: any,b: any) => b.created - a.created)
+    } else {
+      filtered= filtered.sort((a: any,b: any) => a.created - b.created)
+    }
+    return filtered
   }
+
+  private setTabSpecificVariablesForWallpapers(filtered: any) {
+    if (this.selectedTab() == "fav") {
+      this.favouriteWallpapers.set(filtered)
+      this.currentLoadedFavouriteWallpapers.set(this.favouriteWallpapers().slice(0,this.loadQuantity()))
+    } else if (this.selectedTab() == "local") {
+      this.localWallpapers.set(filtered);
+      this.currentLoadedLocalWallpapers.set(this.localWallpapers().slice(0,this.loadQuantity()));
+    }
+  }
+
+  async searchWallpapers() {
+    if (this.selectedTab() != "fav" && this.selectedTab() != "local") {
+      return
+    }
+
+    this.isLoading.set(true);
+    const wallpaperSource = this.selectedTab() == "fav" ? await this.electron.getFavouriteWallpapers() : await this.electron.getLocalWallpapers()
+    let filteredWallpapers = wallpaperSource
+      .filter((wallpaper: { name: string,path: string}) => wallpaper.name.includes(this.searchParameter().q))
+      .sort((a: any,b: any) => b.created - a.created);
+
+    filteredWallpapers = this.filterWallpaperOrder(filteredWallpapers);
+    this.setTabSpecificVariablesForWallpapers(filteredWallpapers);
+
+    this.isLoading.set(false);
+
+  }
+
 
   async loadFavouriteWallpapers() {
     const start = 0;
