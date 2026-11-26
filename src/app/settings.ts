@@ -56,6 +56,37 @@ export class Settings {
 
   constructor() {}
 
+  resetSearchParameter() {
+    this.searchParameter.set({
+    q: "",
+    categories: [
+      { name: "General", value: "100", isChecked: true },
+      { name: "Anime",   value: "010", isChecked: true },
+      { name: "People",  value: "001", isChecked: true }
+    ],
+    category: "",
+    purity: "100",
+    sorting: "views",
+    order: "desc",
+    localOrder: "Newest",
+    topRange: "1M",
+    atleast: "1920x1080",
+    resolution: [
+      "1920x1080",
+      "1920x1200",
+      "2560x1440",
+      "2560x1600",
+      "3840x2160",
+      "1920x1440",
+      "2560x1080",
+      "3440x1440",
+      "3840x1600",
+    ],
+    page: 1
+  });
+
+  }
+
   private filterWallpaperOrder(filtered: any) {
     if (this.searchParameter().localOrder == "Newest") {
       filtered = filtered.sort((a: any,b: any) => b.created - a.created)
