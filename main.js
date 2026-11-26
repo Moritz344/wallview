@@ -51,6 +51,7 @@ ipcMain.handle("update-favourite-wallpaper",async(_,wallpaper) => {
   let favouriteWallpapers = store.get("favourites") ?? [];
   const wallpaperExists = favouriteWallpapers.some(x => x.path == wallpaper.path);
   if (!wallpaperExists) {
+    wallpaper.created = new Date().getTime()
     favouriteWallpapers.push(wallpaper);
     store.set("favourites",favouriteWallpapers);
   } else {

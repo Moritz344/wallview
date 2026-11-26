@@ -45,7 +45,7 @@ export class Settings {
     page: 1
   });
 
-  public favouriteWallpapers = signal<{path: string,name: string}[]>([]);
+  public favouriteWallpapers = signal<{path: string,name: string,created: number}[]>([]);
   public currentLoadedFavouriteWallpapers = signal<{path: string,name: string}[]>([]);
 
   public localWallpapers = signal<WallpaperFile[]>([]);
