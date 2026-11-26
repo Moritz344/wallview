@@ -20,6 +20,7 @@ export class Wallhaven {
     "3440x1440",
     "3840x1600",
   ]);
+  public wallhavenSearchError = signal<boolean>(false);
 
   constructor() {}
 
