@@ -2,9 +2,10 @@
   </div>
   <div class="container">
     <div class="container-content">
-        <h1>{{ aboutData().name }} </h1>
-        <p style="margin-bottom: -8px">{{ aboutData().version }} </p>
-        <p style="color: var(--text-muted);margin: 10px;text-align: center">{{ aboutData().description }} </p>
+        <img  src="wallview-icon.png">
+        <h1 style="margin: 0px">{{ aboutData().name }} </h1>
+        <p style="margin-bottom: 10px">{{ aboutData().author }}</p>
+        <p class="version">{{ aboutData().version }} </p>
     </div>
 
     <div class="close" (click)="onClose()">
