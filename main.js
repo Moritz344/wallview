@@ -51,7 +51,12 @@ ipcMain.handle("update-favourite-wallpaper",async(_,wallpaper) => {
   let favouriteWallpapers = store.get("favourites") ?? [];
   const wallpaperExists = favouriteWallpapers.some(x => x.path == wallpaper.path);
   if (!wallpaperExists) {
-    wallpaper.created = new Date().getTime()
+    const filePath = wallpaper.path.replace(/^local-wallpaper:\/\//, "");
+    if (fs.existsSync(filePath)) {
+      wallpaper.created = fs.statSync(filePath).mtimeMs;
+    } else {
+      wallpaper.created = Date.now();
+    }
     favouriteWallpapers.push(wallpaper);
     store.set("favourites",favouriteWallpapers);
   } else {
@@ -232,7 +237,7 @@ ipcMain.handle("get-local-wallpapers",(_) => {
       path: "local-wallpaper://" + fullPath,
       name,
       modified: new Date(stat.mtime).getTime(),
-      created: new Date(stat.birthtime).getTime(),
+      created: stat.mtimeMs,
     };
   });
 });
